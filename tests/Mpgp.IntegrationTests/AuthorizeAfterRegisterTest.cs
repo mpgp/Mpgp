@@ -1,0 +1,120 @@
+// Copyright (c) MPGP. All rights reserved.
+// Licensed under the BSD license. See LICENSE file in the project root for full license information.
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Mpgp.DataAccess;
+using Mpgp.Domain;
+using Mpgp.Domain.Accounts.Commands;
+using Mpgp.Domain.Accounts.Handlers;
+using Mpgp.Infrastructure;
+using Mpgp.Shared.Exceptions;
+using NUnit.Framework;
+
+namespace Mpgp.IntegrationTests
+{
+    public class AuthorizeAfterRegisterTest
+    {
+        private readonly List<IDisposable> disposables = new List<IDisposable>();
+        private IAppUnitOfWork uow;
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            var dbContext = new AppDbContext(new DbContextOptionsBuilder<AppDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options);
+
+            uow = new AppUnitOfWork(dbContext);
+            disposables.Add(uow);
+
+            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            disposables.ForEach(x => x.Dispose());
+        }
+
+        [Test]
+        [Order(1)]
+        public void AuthorizeNonExistingAccount_ExpectNotFoundException()
+        {
+            var account = new AuthorizeAccountCommand()
+            {
+                Login = "admin2018",
+                Password = "12345678asdf"
+            };
+            var handler = new AuthorizeAccountCommandHandler(uow);
+            disposables.Add(handler);
+
+            Assert.ThrowsAsync<NotFoundException>(async () => await handler.Execute(account));
+        }
+
+        [Test]
+        [Order(2)]
+        public async Task RegisterAccount_ExpectSuccessResponse()
+        {
+            var account = new RegisterAccountCommand()
+            {
+                Login = "admin2018",
+                Password = "12345678asdf",
+                PasswordRepeat = "12345678asdf"
+            };
+            var handler = new RegisterAccountCommandHandler(uow);
+            disposables.Add(handler);
+
+            var result = await handler.Execute(account);
+
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        [Order(3)]
+        public void RegisterAccount_ExpectConflictException()
+        {
+            var account = new RegisterAccountCommand()
+            {
+                Login = "admin2018",
+                Password = "12345678asdf",
+                PasswordRepeat = "12345678asdf"
+            };
+            var handler = new RegisterAccountCommandHandler(uow);
+            disposables.Add(handler);
+
+            Assert.ThrowsAsync<ConflictException>(async () => await handler.Execute(account));
+        }
+
+        [Test]
+        [Order(4)]
+        public async Task AuthorizeExistingAccount_ExpectSuccessResponse()
+        {
+            // Arrange
+            var account = new AuthorizeAccountCommand()
+            {
+                Login = "admin2018",
+                Password = "12345678asdf"
+            };
+            var authorizeHandler = new AuthorizeAccountCommandHandler(uow);
+            var validationHandler = new ValidateTokenCommandHandler(uow);
+            disposables.Add(authorizeHandler);
+
+            // Act
+            var authorizeResult = await authorizeHandler.Execute(account);
+            var authData = new ValidateTokenCommand()
+            {
+                AuthToken = account.AuthToken
+            };
+            var validationResult = await validationHandler.Execute(authData);
+
+            // Assert
+            Assert.AreEqual(1, authorizeResult);
+            Assert.AreEqual(1, validationResult);
+        }
+    }
+}

@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+    mpgpdb:
+        environment:
+            - POSTGRES_DB=mpgp
+            - POSTGRES_USER=agent4mpgp
+            - POSTGRES_PASSWORD=v3ry23C93tp422w0Rd
+        image: mpgp129/mpgpdb
+        hostname: mpgpdb
+        container_name: mpgpdb
+        labels:
+            - SERVICE_NAME=mpgpdb
+        volumes:
+            - /private/var/lib/postgresql:/var/lib/postgresql
+
+    mpgpweb:
+        links:
+            - mpgpdb
+        depends_on:
+            - mpgpdb
+        image: mpgp129/mpgpweb
+        hostname: mpgpweb
+        expose:
+            - 5000
+        ports:
+            - 5000:5000
+        container_name: mpgpweb
+        environment:
+            - DB_HOST=mpgpdb
+            - DB_USER_NAME=agent4mpgp
+            - DB_USER_PASSWORD=v3ry23C93tp422w0Rd
+            - DB_NAME=mpgp
+            - REST_API_URL=http://0.0.0.0:5000
+            - APP_ENV=local
+            - VIRTUAL_HOST=mpgpweb
+        labels:
+            - SERVICE_NAME=mpgpweb
+        command: /bin/bash -c "envsubst < /app/appsettings.json > /app/appsettings.json && dotnet /app/Mpgp.RestApiServer.dll" 

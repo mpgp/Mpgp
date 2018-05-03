@@ -1,0 +1,54 @@
+--------------------------------------------------------------------
+-----------------------   Shared   ---------------------------------
+--------------------------------------------------------------------
+:sparkles: **Unit Test**
+data driven testing.
+DDT + mock & stub
+
+--------------------------------------------------------------------
+-----------------------   RestApiServer   --------------------------------
+--------------------------------------------------------------------
+think about CancellationToken and CancellationToken.ThrowIfCancellationRequested
+
+disconnect from WS after LOGOUt and remove authtoken
+
+[Authorize]
+memcached
+
+**auth**
+individual user accounts
+https://github.com/loktionov129/aspnetcore_identity
+
+**[Attributes]**
+https://habrahabr.ru/post/346850/
+
+**Routes**
+https://stormpath.com/blog/routing-in-asp-net-core
+
+
+
+```
+public App()
+   {
+      AppDomain currentDomain = AppDomain.CurrentDomain;
+      currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);    
+   }
+
+   static void MyHandler(object sender, UnhandledExceptionEventArgs args) 
+   {
+      Exception e = (Exception) args.ExceptionObject;
+      Console.WriteLine("MyHandler caught : " + e.Message);
+      Console.WriteLine("Runtime terminating: {0}", args.IsTerminating);
+   }
+```
+
+
+--------------------------------------------------------------------
+-----------------------   WebSocketServer   ------------------------
+--------------------------------------------------------------------
+
+`new WebSocket("ws://username:password@example.com/service");`
+
+`new WebSocket("ws://my_token@example.com/service");`
+
+`new WebSocket("ws://example.com/service?key1=value1&key2=value2");`
