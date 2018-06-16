@@ -1,4 +1,7 @@
 # Mpgp
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/mpgp/Mpgp.svg)](https://greenkeeper.io/)
+
 ## Multiplayer Game Platform
 
 ---
