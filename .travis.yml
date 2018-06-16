@@ -1,0 +1,32 @@
+sudo: required
+language: node_js
+node_js:
+  - stable
+cache:
+  yarn: true
+  directories:
+    - node_modules
+branches:
+  only:
+    - master
+    - /^greenkeeper/.*$/
+
+before_install:
+  - bash scripts/bash/ci/1_before_install.sh
+
+install:
+  - bash scripts/bash/ci/2_install.sh
+
+before_script:
+  - bash scripts/bash/ci/3_before_script.sh
+
+script:
+  - bash scripts/bash/ci/4_script.sh
+
+deploy:
+  - on:
+      branch: "master"
+    provider: script
+    skip_cleanup: true
+    script:
+      - BRANCH=$TRAVIS_BRANCH DOCKER_USERNAME=$DOCKER_USERNAME DOCKER_PASSWORD=$DOCKER_PASSWORD GITLAB_TOKEN=$GITLAB_TOKEN bash scripts/bash/ci/5_deploy.sh

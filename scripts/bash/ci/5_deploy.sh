@@ -6,8 +6,8 @@ COMMANDS_TO_RUN=()
 
 COMMANDS_TO_RUN+=('echo 5_deploy.sh ...')
 COMMANDS_TO_RUN+=('npx semantic-release --branch $BRANCH')
-COMMANDS_TO_RUN+=('bash scripts/gitlab_sync.sh')
-COMMANDS_TO_RUN+=('bash scripts/docker_hub.sh')
+COMMANDS_TO_RUN+=('bash scripts/bash/gitlab_sync.sh')
+COMMANDS_TO_RUN+=('bash scripts/bash/docker/deploy.sh')
 
 RETURN_CODES=()
 FAILURE=0

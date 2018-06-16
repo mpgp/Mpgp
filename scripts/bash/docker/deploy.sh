@@ -6,7 +6,7 @@ COMMANDS_TO_RUN=()
 
 COMMANDS_TO_RUN+=('echo Build image and push to hub.docker.com')
 COMMANDS_TO_RUN+=('echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin')
-COMMANDS_TO_RUN+=('docker build --rm --no-cache -t mpgp129/mpgpspec -f ./docker/Dockerfile .')
+COMMANDS_TO_RUN+=('bash scripts/bash/docker/build.sh')
 COMMANDS_TO_RUN+=('docker push mpgp129/mpgpspec')
 
 RETURN_CODES=()

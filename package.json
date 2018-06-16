@@ -1,0 +1,96 @@
+{
+  "version": "2.0.0",
+  "name": "mpgp",
+  "description": "Multiplayer Game Platform",
+  "author": "loktionov129",
+  "license": "BSD-2-Clause",
+  "homepage": "https://github.com/mpgp/Mpgp#readme",
+  "keywords": [
+    "entity-framework-core",
+    "websockets",
+    "asp-net-core-web-api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpgp/Mpgp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mpgp/Mpgp/issues"
+  },
+  "commitlint": {
+    "extends": [
+      "./node_modules/@commitlint/config-conventional"
+    ],
+    "rules": {
+      "scope-enum": [
+        2,
+        "always",
+        [
+          "core",
+          "api",
+          "ws"
+        ]
+      ],
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "ci",
+          "docs",
+          "feat",
+          "fix",
+          "perf",
+          "refactor",
+          "revert",
+          "style",
+          "test"
+        ]
+      ]
+    }
+  },
+  "lint-staged": {
+    "*.cs": [
+      "yarn run lint",
+      "git add"
+    ]
+  },
+  "release": {
+    "npmPublish": false,
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ],
+    "success": [
+      "@semantic-release/github"
+    ],
+    "fail": [
+      "@semantic-release/github"
+    ]
+  },
+  "scripts": {
+    "commitmsg": "commitlint -E GIT_PARAMS",
+    "lint": "echo linting staged .cs files",
+    "precommit": "lint-staged",
+    "start:dev": "bash ./scripts/bash/docker/compose.sh dev",
+    "start:pod": "bash ./scripts/bash/docker/compose.sh prod",
+    "test": "echo Please use yarn run test:run",
+    "test:run": "bash ./scripts/bash/test_runner.sh"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "7.0.0",
+    "@commitlint/config-conventional": "7.0.1",
+    "@commitlint/config-lerna-scopes": "7.0.0",
+    "@semantic-release/changelog": "2.0.2",
+    "@semantic-release/git": "5.0.0",
+    "@semantic-release/github": "4.2.17",
+    "husky": "0.14.3",
+    "lint-staged": "7.2.0"
+  }
+}
