@@ -10,9 +10,6 @@ RestApiServer:
         ☐ docs: update readme @created(18-06-16 18:27:23)
         use `#` instead of `*` in readme.md and create nav links on readme.md 
 
-        @critical @bug
-        ☐ fix: use regex `^[^\s].{1,18}[^\s]$` for username @created(18-06-16 18:23:47)
-
     To Do:
 
         @low

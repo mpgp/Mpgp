@@ -9,6 +9,9 @@
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
   "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
   "editor.matchBrackets": false,
   "typescript.reportStyleChecksAsWarnings": true,
   "todo.file": ".ToDo",
