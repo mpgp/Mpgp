@@ -1,3 +1,11 @@
+# 1.0.0 (2018-06-16)
+
+
+### Bug Fixes
+
+* add  to bash scripts ([5a7b8be](https://github.com/mpgp/Mpgp/commit/5a7b8be))
+* use regex  for username ([429e92d](https://github.com/mpgp/Mpgp/commit/429e92d))
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
