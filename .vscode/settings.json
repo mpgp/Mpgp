@@ -1,0 +1,52 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.exclude": {
+    "**/node_modules": true,
+    "node_modules": true
+  },
+  "explorer.confirmDelete": false,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.matchBrackets": false,
+  "typescript.reportStyleChecksAsWarnings": true,
+  "todo.file": ".ToDo",
+  "todo.indentation": "    ",
+  "todo.tags.names": [
+    "critical",
+    "high",
+    "low",
+    "today",
+    "feature",
+    "bug",
+    "chore",
+    "refactoring"
+  ],
+  "todo.tags.backgroundColors": [
+    "#e54545",
+    "#e59f45",
+    "#e5d145",
+    "#ae81ff",
+    "#7777ff",
+    "#45ff45",
+    "#aaaaaa",
+    "#ffffff"
+  ],
+  "todo.tags.foregroundColors": [
+    "#000000",
+    "#000000",
+    "#000000",
+    "#000000",
+    "#000000",
+    "#000000",
+    "#000000",
+    "#000000"
+  ],
+  "todo.timekeeping.created.enabled": true,
+  "todo.timekeeping.created.format": "YY-MM-DD HH:mm:ss",
+  "todo.timekeeping.started.format": "YY-MM-DD HH:mm:ss",
+  "todo.timekeeping.finished.format": "YY-MM-DD HH:mm:ss",
+  "todo.statistics.project.text": "([pending])  [done]/[cancelled]/[finished]",
+  "todo.statistics.statusbar.command": "todo.openEmbedded"
+}
