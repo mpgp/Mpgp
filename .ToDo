@@ -3,9 +3,6 @@ RestApiServer:
 
     In Progress:
 
-        @low @chore 
-        ☐ fix: update scripts to use `set -e`, `set -u` @created(18-06-16 18:41:54)
-
         @high @bug 
         ☐ fix: change images version to alpine @created(18-06-16 18:38:20)
 
