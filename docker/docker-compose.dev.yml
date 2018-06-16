@@ -36,4 +36,4 @@ services:
             - VIRTUAL_HOST=mpgpweb
         labels:
             - SERVICE_NAME=mpgpweb
-        command: /bin/bash -c "envsubst < /app/appsettings.json > /app/appsettings.json && dotnet /app/Mpgp.RestApiServer.dll" 
+        command: /bin/sh -c "envsubst < /app/appsettings.json > /app/appsettings.json && dotnet /app/Mpgp.RestApiServer.dll" 
