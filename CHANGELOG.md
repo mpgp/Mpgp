@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/mpgp/Mpgp/compare/v2.0.2...v2.0.3) (2018-06-16)
+
+
+### Bug Fixes
+
+* resolve problems with docker ([8a56eaa](https://github.com/mpgp/Mpgp/commit/8a56eaa))
+
 ## [2.0.2](https://github.com/mpgp/Mpgp/compare/v2.0.1...v2.0.2) (2018-06-16)
 
 
