@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/mpgp/Mpgp/compare/v2.0.1...v2.0.2) (2018-06-16)
+
+
+### Bug Fixes
+
+* use alpine versions for docker images ([5f2c027](https://github.com/mpgp/Mpgp/commit/5f2c027))
+
 # 1.0.0 (2018-06-16)
 
 
