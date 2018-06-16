@@ -33,7 +33,7 @@ namespace Mpgp.Domain.Accounts.Entities
         [Required(ErrorMessage = Errors.NicknameRequired)]
         [MinLength(3, ErrorMessage = Account.Errors.NicknameMinLength)]
         [MaxLength(20, ErrorMessage = Account.Errors.NicknameMaxLength)]
-        [RegularExpression(@"^([^\s]+?\s?[^\s]+?)+?$", ErrorMessage = Account.Errors.NicknameRegex)]
+        [RegularExpression(@"^[^\s].{1,18}[^\s]$", ErrorMessage = Account.Errors.NicknameRegex)]
         public string Nickname { get; set; }
 
         [Required(ErrorMessage = Errors.PasswordRequired)]
