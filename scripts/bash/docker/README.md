@@ -1,5 +1,5 @@
 ```
-docker run --rm --hostname localhost -p 8080:8080 --name browserclient mpgp129/browserclient:latest
+docker run --rm --hostname localhost -p 8080:8080 --name mpgpweb mpgp129/mpgpweb:latest
 ```
 
 ```

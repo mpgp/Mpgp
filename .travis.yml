@@ -11,17 +11,25 @@ branches:
     - master
     - /^greenkeeper/.*$/
 
+env:
+  global:
+    - BRANCH=$TRAVIS_BRANCH
+    - GITLAB_REPO_OWNER=mpgp
+    - GITLAB_REPO_NAME=Mpgp
+    - DOCKER_IMAGE_OWNER=mpgp129
+    - DOCKER_IMAGE_NAME=mpgpweb
+
 before_install:
-  - bash scripts/bash/ci/1_before_install.sh
+  - bash scripts/bash/bash_runner.sh scripts/bash/ci/1_before_install.sh
 
 install:
-  - bash scripts/bash/ci/2_install.sh
+  - bash scripts/bash/bash_runner.sh scripts/bash/ci/2_install.sh
 
 before_script:
-  - bash scripts/bash/ci/3_before_script.sh
+  - bash scripts/bash/bash_runner.sh scripts/bash/ci/3_before_script.sh
 
 script:
-  - bash scripts/bash/ci/4_script.sh
+  - bash scripts/bash/bash_runner.sh scripts/bash/ci/4_script.sh
 
 deploy:
   - on:
@@ -29,4 +37,4 @@ deploy:
     provider: script
     skip_cleanup: true
     script:
-      - BRANCH=$TRAVIS_BRANCH DOCKER_USERNAME=$DOCKER_USERNAME DOCKER_PASSWORD=$DOCKER_PASSWORD GITLAB_TOKEN=$GITLAB_TOKEN bash scripts/bash/ci/5_deploy.sh
+      - bash scripts/bash/bash_runner.sh scripts/bash/ci/5_deploy.sh

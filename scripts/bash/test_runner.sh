@@ -4,5 +4,5 @@ set -e
 set -u
 
 for i in $(ls -d ./tests/*/ | grep Mpgp | sed 's/\/$//'); do
-	dotnet test ${i%%/};
+    echo '----------------' && echo test ${i%%/} && dotnet test ${i%%/} && echo test ${i%%/} && echo '----------------';
 done

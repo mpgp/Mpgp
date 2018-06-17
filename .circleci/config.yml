@@ -1,0 +1,35 @@
+version: 2
+general:
+  branches:
+    only:
+      - master
+jobs:
+  build:
+    working_directory: /temp
+    docker:
+      - image: microsoft/dotnet:2.1-sdk-alpine
+    environment:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+    steps:
+      - checkout
+
+      - run:
+          name: Export environment variables
+          command: export BRANCH=$CIRCLE_BRANCH
+
+      - run:
+          name: Dotnet Version
+          command: echo CIRCLE_BRANCH $BRANCH triggered && dotnet --version
+
+      - run:
+          name: Install NuGet Packages
+          command: cd tests && dotnet restore && cd -
+
+      - run:
+          name: Preparate env
+          command: cp -rf tools/appsettings.default.json tools/appsettings.json
+
+      - run:
+          name: Test Packages
+          command: sh scripts/bash/test_runner.sh
