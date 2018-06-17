@@ -1,5 +1,6 @@
 ```
-docker run --rm --hostname localhost -p 8080:8080 --name mpgpweb mpgp129/mpgpweb:latest
+docker pull mpgp129/mpgpclient
+docker run --rm --hostname localhost -p 8080:8080 --name mpgpclient mpgp129/mpgpclient:latest
 ```
 
 ```

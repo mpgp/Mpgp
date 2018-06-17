@@ -1,7 +1,7 @@
 # Mpgp
 ## Multiplayer Game Platform
 
-* The structure of src folder:
+### The structure of src folder:
 
 ```
 .

@@ -3,9 +3,8 @@ RestApiServer:
 
     In Progress:
 
-        @high @chore 
-        ☐ docs: update readme @created(18-06-16 18:27:23)
-        use `#` instead of `*` in readme.md and create nav links on readme.md 
+        @high @feature 
+        ☐ feature(user): add endpoint for editing profile @created(18-06-16 18:32:24)
 
     To Do:
 
@@ -14,9 +13,6 @@ RestApiServer:
 
         @low @bug 
         ☐ *logout* disconnect from WS after LOGOUt and remove authtoken @created(18-06-16 18:34:21)
-
-        @high @feature 
-        ☐ feature(user): add endpoint for editing profile @created(18-06-16 18:32:24)
 
         @low
         ☐ why srt use using(fc.create())?

@@ -1,32 +1,36 @@
 # Mpgp
-## Multiplayer Game Platform
+
+Multiplayer Game Platform
 
 ---
 
-* Download .NET Core
+## Download .NET Core
 
 [https://www.microsoft.com/net/learn/get-started/linuxubuntu](https://www.microsoft.com/net/learn/get-started/linuxubuntu)
 
 ---
 
-* Download PostgreSQL
+## Download PostgreSQL
 
 [https://www.postgresql.org/download/](https://www.postgresql.org/download/)
 
 ---
 
-* Prepare
+## Edit configuration
 
 ```sh
 cp ./tools/appsettings.default.json ./tools/appsettings.json
 (cd ./src/Mpgp.DataAccess && dotnet restore)
+nano ./tools/appsettings.json
 ```
 
 ---
 
-* Create database "mpgp" and user "agent4mpgp" with password "v3ry23C93tp422w0Rd"
+## Configure database
 
-* Grant all privileges on database "mpgp" to "agent4mpgp"
+Create database "mpgp" and user "agent4mpgp" with password "v3ry23C93tp422w0Rd"
+
+Grant all privileges on database "mpgp" to "agent4mpgp"
 
 ```sh
 ./scripts/bash/postgres_initializer.sh
@@ -34,7 +38,7 @@ cp ./tools/appsettings.default.json ./tools/appsettings.json
 
 ---
 
-* Update database, create tables
+## Update database, create tables
 
 ```sh
 # Recommended using dotnet CLI
