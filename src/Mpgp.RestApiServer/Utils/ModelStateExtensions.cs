@@ -17,7 +17,11 @@ namespace Mpgp.RestApiServer.Utils
             {
                 var errorList = (Abstract.IErrorList)Activator.CreateInstance(typeof(T));
                 var errorCode = modelState.Values.First().Errors.First().ErrorMessage;
-                var errorMessage = errorList.Messages[errorCode];
+                if (!errorList.Messages.TryGetValue(errorCode, out var errorMessage))
+                {
+                    errorMessage = "Invalid data";
+                       
+                }
                 throw new Shared.Exceptions.ValidationException(errorMessage, errorCode);
             }
         }

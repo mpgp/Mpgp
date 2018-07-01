@@ -35,7 +35,9 @@ namespace Mpgp.RestApiServer.Controllers
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
             await commandFactory.Execute(account);
-            return Ok(new AuthDataDto(account.AuthToken));
+            var userAccount = await queryFactory.ResolveQuery<AccountByAuthTokenQuery>().Execute(account.AuthToken);
+            var userInfo = AutoMapper.Mapper.Map<Account, AccountDto>(userAccount);
+            return StatusCode(200, new AuthInfoDto(userInfo, account.AuthToken));
         }
 
         [HttpGet("{accountId}")]
@@ -51,7 +53,9 @@ namespace Mpgp.RestApiServer.Controllers
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
             await commandFactory.Execute(account);
-            return StatusCode(201, new AuthDataDto(account.AuthToken));
+            var userAccount = await queryFactory.ResolveQuery<AccountByAuthTokenQuery>().Execute(account.AuthToken);
+            var userInfo = AutoMapper.Mapper.Map<Account, AccountDto>(userAccount);
+            return StatusCode(201, new AuthInfoDto(userInfo, account.AuthToken));
         }
 
         [HttpPatch]

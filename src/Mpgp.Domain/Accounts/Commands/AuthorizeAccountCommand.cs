@@ -10,7 +10,6 @@ namespace Mpgp.Domain.Accounts.Commands
 {
     public class AuthorizeAccountCommand : ICommand
     {
-        [Required]
         [MaxLength(64)]
         public string AuthToken { get; set; }
 
