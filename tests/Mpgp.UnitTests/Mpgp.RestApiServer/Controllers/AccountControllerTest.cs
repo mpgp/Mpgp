@@ -70,17 +70,20 @@ namespace Mpgp.UnitTests.Mpgp.RestApiServer.Controllers
                 {
                     var handler = new AuthorizeAccountCommandHandler(uow);
                     await handler.Execute(command);
-                    handler.Dispose();
                 });
 
+            var mockQueryFactory = new Mock<IQueryFactory>();
+            mockQueryFactory.Setup(repo => repo.ResolveQuery<AccountByAuthTokenQuery>())
+                .Returns(() => new AccountByAuthTokenQuery(uow));
+
             // Act
-            var controller = new AccountController(mockCommandFactory.Object, logger, null);
-            var okObjectResult = await controller.Authorize(command) as OkObjectResult;
+            var controller = new AccountController(mockCommandFactory.Object, logger, mockQueryFactory.Object);
+            var objectResult = await controller.Authorize(command) as ObjectResult;
 
             // Assert
-            Assert.NotNull(okObjectResult);
+            Assert.NotNull(objectResult);
 
-            var model = okObjectResult.Value as AuthDataDto;
+            var model = objectResult.Value as AuthInfoDto;
             Assert.NotNull(model);
         }
 
@@ -133,17 +136,20 @@ namespace Mpgp.UnitTests.Mpgp.RestApiServer.Controllers
                 {
                     var handler = new RegisterAccountCommandHandler(uow);
                     await handler.Execute(command);
-                    handler.Dispose();
                 });
 
+            var mockQueryFactory = new Mock<IQueryFactory>();
+            mockQueryFactory.Setup(repo => repo.ResolveQuery<AccountByAuthTokenQuery>())
+                .Returns(() => new AccountByAuthTokenQuery(uow));
+
             // Act
-            var controller = new AccountController(mockCommandFactory.Object, logger, null);
+            var controller = new AccountController(mockCommandFactory.Object, logger, mockQueryFactory.Object);
             var objectResult = await controller.Register(command) as ObjectResult;
 
             // Assert
             Assert.NotNull(objectResult);
 
-            var model = objectResult.Value as AuthDataDto;
+            var model = objectResult.Value as AuthInfoDto;
             Assert.NotNull(model);
         }
 
