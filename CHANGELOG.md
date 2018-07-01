@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/mpgp/Mpgp/compare/v2.0.3...v2.1.0) (2018-07-01)
+
+
+### Features
+
+* **api:** add exceptions endpoint ([e4358a0](https://github.com/mpgp/Mpgp/commit/e4358a0))
+
 ## [2.0.3](https://github.com/mpgp/Mpgp/compare/v2.0.2...v2.0.3) (2018-06-16)
 
 
