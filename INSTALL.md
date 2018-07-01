@@ -47,3 +47,10 @@ Grant all privileges on database "mpgp" to "agent4mpgp"
 # Or run migrator script
 (cd ./scripts/bash/ && ./postgres_migrator.sh)
 ```
+
+## Logs
+
+```
+sudo mkdir -p /var/log/mpgp
+sudo chown -R $USER /var/log/mpgp
+sudo chmod -R 777 /var/log/mpgp
