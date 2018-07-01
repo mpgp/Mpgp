@@ -169,9 +169,9 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@semantic-release/changelog@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@semantic-release/changelog/-/changelog-2.0.2.tgz#9972738dc97cf8b516f4200b8ee92e708e415d65"
+"@semantic-release/changelog@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@semantic-release/changelog/-/changelog-2.1.1.tgz#b95a0bfe55894e0ffb1bf074885998310ef08694"
   dependencies:
     "@semantic-release/error" "^2.1.0"
     aggregate-error "^1.0.0"
@@ -182,9 +182,9 @@
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@semantic-release/error/-/error-2.2.0.tgz#ee9d5a09c9969eade1ec864776aeda5c5cddbbf0"
 
-"@semantic-release/git@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@semantic-release/git/-/git-5.0.0.tgz#13703fca8f8c8c03066b0d005ee6a8c0119c3164"
+"@semantic-release/git@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@semantic-release/git/-/git-6.0.1.tgz#fe64ed2e323f224c27c90259926c7d09c055e3ed"
   dependencies:
     "@semantic-release/error" "^2.1.0"
     aggregate-error "^1.0.0"
@@ -196,9 +196,9 @@
     micromatch "^3.1.4"
     p-reduce "^1.0.0"
 
-"@semantic-release/github@4.2.17":
-  version "4.2.17"
-  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-4.2.17.tgz#1d3f465b4bdbc57ecfcb55aefdc554804a8cbc76"
+"@semantic-release/github@4.2.18":
+  version "4.2.18"
+  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-4.2.18.tgz#d0298aad116c97d1d3bb3ba2954f3d8b83dbbd12"
   dependencies:
     "@octokit/rest" "^15.2.0"
     "@semantic-release/error" "^2.2.0"
