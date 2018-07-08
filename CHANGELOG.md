@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/mpgp/Mpgp/compare/v2.1.0...v2.2.0) (2018-07-08)
+
+
+### Features
+
+* add jwt authentication ([fff888f](https://github.com/mpgp/Mpgp/commit/fff888f))
+
 # [2.1.0](https://github.com/mpgp/Mpgp/compare/v2.0.3...v2.1.0) (2018-07-01)
 
 
