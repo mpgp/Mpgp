@@ -112,7 +112,7 @@ namespace Mpgp.WebSocketServer.Core
                 var connectionMessage = new Messages.Server.UserConnectionMessage()
                 {
                     Account = account,
-                    Status = Messages.Status.Disconnect
+                    Status = Messages.ConnectionStatus.Disconnect
                 };
                 await this.SendMessageToAllExcludeOneAsync(socket, connectionMessage);
                 await commandFactory.Execute(new UpdateLastOnlineCommand(account.AccountId));

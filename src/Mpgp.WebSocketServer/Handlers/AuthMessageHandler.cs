@@ -48,7 +48,7 @@ namespace Mpgp.WebSocketServer.Handlers
                 var connectionMessage = new Messages.Server.UserConnectionMessage()
                 {
                     Account = account,
-                    Status = Status.Connect
+                    Status = ConnectionStatus.Connect
                 };
                 await Context.ConnectionManager.SendMessageToAllExcludeOneAsync(Context.Socket, connectionMessage);
             }

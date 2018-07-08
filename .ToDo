@@ -11,9 +11,6 @@ RestApiServer:
         @low
         ☐ test: strict mocks and other rules @created(18-06-16 18:44:03)
 
-        @low @bug 
-        ☐ *logout* disconnect from WS after LOGOUt and remove authtoken @created(18-06-16 18:34:21)
-
         @low
         ☐ why srt use using(fc.create())?
 

@@ -3,12 +3,8 @@
 
 namespace Mpgp.WebSocketServer.Messages
 {
-    public class Status
+    public class ConnectionStatus
     {
-        public const string Error = "ERROR";
-
-        public const string Success = "SUCCESS";
-
         public const string Connect = "CONNECT";
 
         public const string Disconnect = "DISCONNECT";

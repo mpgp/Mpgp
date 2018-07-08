@@ -22,7 +22,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-//            AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<Infrastructure.AutoMapperProfile>());
+            // AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<Infrastructure.AutoMapperProfile>());
         }
 
         [SetUp]

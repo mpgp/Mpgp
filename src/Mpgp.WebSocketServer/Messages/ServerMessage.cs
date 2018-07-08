@@ -8,8 +8,6 @@ namespace Mpgp.WebSocketServer.Messages
     {
         public string Type { get; set; }
 
-        public string Status { get; set; }
-
         public ErrorInfo Error { get; set; }
 
         public T Payload { get; set; }

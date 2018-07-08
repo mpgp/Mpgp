@@ -65,7 +65,6 @@ namespace Mpgp.WebSocketServer.Core
             var response = new ServerMessage<T>()
             {
                 Type = messageType,
-                Status = error == null ? Status.Success : Status.Error,
                 Error = error,
                 Payload = message
             };

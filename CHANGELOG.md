@@ -26,7 +26,7 @@
 
 * use alpine versions for docker images ([5f2c027](https://github.com/mpgp/Mpgp/commit/5f2c027))
 
-# 1.0.0 (2018-06-16)
+# 2.0.1 (2018-06-16)
 
 
 ### Bug Fixes
