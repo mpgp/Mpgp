@@ -9,8 +9,10 @@ using Mpgp.Shared.Exceptions;
 
 namespace Mpgp.RestApiServer.Controllers
 {
+    [ApiController]
+    [Produces("application/json")]
     [Route("api/[controller]")]
-    public class ExceptionController : Controller
+    public class ExceptionController : ControllerBase
     {
         private readonly ILogger<ExceptionController> logger;
 

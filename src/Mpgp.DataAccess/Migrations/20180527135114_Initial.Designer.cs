@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Mpgp.DataAccess;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Mpgp.DataAccess.Migrations
 {

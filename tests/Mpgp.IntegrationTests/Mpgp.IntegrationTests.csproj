@@ -1,27 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>netcoreapp2.0</TargetFramework>
-        <IsPackable>false</IsPackable>
-        <CodeAnalysisRuleSet>../../tools/Mpgp.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <ItemGroup>
-        <AdditionalFiles Include="..\..\tools\stylecop.json" />
-    </ItemGroup>
-	<ItemGroup Condition=" '$(OS)' == 'Unix' ">
-		<Analyzer Include="..\..\libs\microsoft.codeanalysis.analyzers\1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-		<Analyzer Include="..\..\libs\microsoft.codeanalysis.analyzers\1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-	</ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.2" />
-        <PackageReference Include="NUnit" Version="3.10.1" />
-        <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.1" />
-        <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\..\src\Mpgp.DataAccess\Mpgp.DataAccess.csproj" />
-      <ProjectReference Include="..\..\src\Mpgp.Domain\Mpgp.Domain.csproj" />
-      <ProjectReference Include="..\..\src\Mpgp.Infrastructure\Mpgp.Infrastructure.csproj" />
-      <ProjectReference Include="..\..\src\Mpgp.Shared\Mpgp.Shared.csproj" />
-    </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <CodeAnalysisRuleSet>../../tools/Mpgp.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\tools\stylecop.json" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(OS)' == 'Unix' ">
+    <Analyzer Include="..\..\libs\microsoft.codeanalysis.analyzers\1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\..\libs\microsoft.codeanalysis.analyzers\1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.1" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Mpgp.DataAccess\Mpgp.DataAccess.csproj" />
+    <ProjectReference Include="..\..\src\Mpgp.Domain\Mpgp.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Mpgp.Infrastructure\Mpgp.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Mpgp.Shared\Mpgp.Shared.csproj" />
+  </ItemGroup>
 </Project>

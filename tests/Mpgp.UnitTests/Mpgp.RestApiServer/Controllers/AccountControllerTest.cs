@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Mpgp.Abstract;
 using Mpgp.DataAccess;
@@ -21,14 +20,12 @@ namespace Mpgp.UnitTests.Mpgp.RestApiServer.Controllers
 {
     public class AccountControllerTest
     {
-        private ILogger<AccountController> logger;
         private AppUnitOfWork uow;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
             AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<Infrastructure.AutoMapperProfile>());
-            logger = new Mock<ILogger<AccountController>>().Object;
         }
 
         [SetUp]
@@ -77,7 +74,7 @@ namespace Mpgp.UnitTests.Mpgp.RestApiServer.Controllers
                 .Returns(() => new AccountByAuthTokenQuery(uow));
 
             // Act
-            var controller = new AccountController(mockCommandFactory.Object, logger, mockQueryFactory.Object);
+            var controller = new AccountController(mockCommandFactory.Object, mockQueryFactory.Object);
             var objectResult = await controller.Authorize(command) as ObjectResult;
 
             // Assert
@@ -106,7 +103,7 @@ namespace Mpgp.UnitTests.Mpgp.RestApiServer.Controllers
 
             // Act
             var account = await uow.AccountRepository.GetByLogin("admin2018");
-            var controller = new AccountController(null, logger, mockQueryFactory.Object);
+            var controller = new AccountController(null, mockQueryFactory.Object);
             var okObjectResult = await controller.GetInfo(account.AccountId) as OkObjectResult;
 
             // Assert
@@ -143,7 +140,7 @@ namespace Mpgp.UnitTests.Mpgp.RestApiServer.Controllers
                 .Returns(() => new AccountByAuthTokenQuery(uow));
 
             // Act
-            var controller = new AccountController(mockCommandFactory.Object, logger, mockQueryFactory.Object);
+            var controller = new AccountController(mockCommandFactory.Object, mockQueryFactory.Object);
             var objectResult = await controller.Register(command) as ObjectResult;
 
             // Assert
@@ -180,7 +177,7 @@ namespace Mpgp.UnitTests.Mpgp.RestApiServer.Controllers
                 });
 
             // Act
-            var controller = new AccountController(mockCommandFactory.Object, logger, null);
+            var controller = new AccountController(mockCommandFactory.Object, null);
             var okResult = await controller.ValidateToken(command) as OkResult;
 
             // Assert

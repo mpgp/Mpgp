@@ -3,9 +3,8 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
 using System;
-
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Mpgp.DataAccess.Migrations
 {

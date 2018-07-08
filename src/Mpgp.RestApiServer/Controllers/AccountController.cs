@@ -15,22 +15,22 @@ using Mpgp.RestApiServer.Utils;
 
 namespace Mpgp.RestApiServer.Controllers
 {
+    [ApiController]
+    [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private readonly ICommandFactory commandFactory;
-        private readonly ILogger<AccountController> logger;
         private readonly IQueryFactory queryFactory;
 
-        public AccountController(ICommandFactory commandFactory, ILogger<AccountController> logger, IQueryFactory queryFactory)
+        public AccountController(ICommandFactory commandFactory, IQueryFactory queryFactory)
         {
             this.commandFactory = commandFactory;
-            this.logger = logger;
             this.queryFactory = queryFactory;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Authorize([FromBody]AuthorizeAccountCommand account, CancellationToken token = default(CancellationToken))
+        public async Task<IActionResult> Authorize(AuthorizeAccountCommand account, CancellationToken token = default(CancellationToken))
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
@@ -48,7 +48,7 @@ namespace Mpgp.RestApiServer.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Register([FromBody]RegisterAccountCommand account, CancellationToken token = default(CancellationToken))
+        public async Task<IActionResult> Register(RegisterAccountCommand account, CancellationToken token = default(CancellationToken))
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
@@ -59,7 +59,7 @@ namespace Mpgp.RestApiServer.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> ValidateToken([FromBody]ValidateTokenCommand authData, CancellationToken token = default(CancellationToken))
+        public async Task<IActionResult> ValidateToken(ValidateTokenCommand authData, CancellationToken token = default(CancellationToken))
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
