@@ -11,6 +11,7 @@ using Mpgp.DataAccess;
 using Mpgp.Domain;
 using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Handlers;
+using Mpgp.Domain.Accounts.Queries;
 using Mpgp.Infrastructure;
 using Mpgp.Shared.Exceptions;
 using NUnit.Framework;
@@ -50,10 +51,9 @@ namespace Mpgp.IntegrationTests
                 Login = "admin2018",
                 Password = "12345678asdf"
             };
-            var handler = new AuthorizeAccountCommandHandler(uow);
-            disposables.Add(handler);
+            var query = new AccountByLoginAndPasswordQuery(uow);
 
-            Assert.ThrowsAsync<NotFoundException>(async () => await handler.Execute(account));
+            Assert.ThrowsAsync<NotFoundException>(async () => await query.Execute(account.Login, account.Password));
         }
 
         [Test]
@@ -100,21 +100,13 @@ namespace Mpgp.IntegrationTests
                 Login = "admin2018",
                 Password = "12345678asdf"
             };
-            var authorizeHandler = new AuthorizeAccountCommandHandler(uow);
-            var validationHandler = new ValidateTokenCommandHandler(uow);
-            disposables.Add(authorizeHandler);
+            var query = new AccountByLoginAndPasswordQuery(uow);
 
             // Act
-            var authorizeResult = await authorizeHandler.Execute(account);
-            var authData = new ValidateTokenCommand()
-            {
-                AuthToken = account.AuthToken
-            };
-            var validationResult = await validationHandler.Execute(authData);
+            var authorizeResult = await query.Execute(account.Login, account.Password);
 
             // Assert
-            Assert.AreEqual(1, authorizeResult);
-            Assert.AreEqual(1, validationResult);
+            Assert.NotNull(authorizeResult);
         }
     }
 }

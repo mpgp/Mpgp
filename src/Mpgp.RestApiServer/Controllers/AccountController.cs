@@ -1,17 +1,22 @@
 ﻿// Copyright (c) MPGP. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Mpgp.Abstract;
 using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Dtos;
 using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Queries;
 using Mpgp.RestApiServer.Utils;
+using Newtonsoft.Json;
 
 namespace Mpgp.RestApiServer.Controllers
 {
@@ -30,14 +35,17 @@ namespace Mpgp.RestApiServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Authorize(AuthorizeAccountCommand account, CancellationToken token = default(CancellationToken))
+        public async Task Authorize(
+            AuthorizeAccountCommand command,
+            CancellationToken token = default(CancellationToken))
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
-            await commandFactory.Execute(account);
-            var userAccount = await queryFactory.ResolveQuery<AccountByAuthTokenQuery>().Execute(account.AuthToken);
-            var userInfo = AutoMapper.Mapper.Map<Account, AccountDto>(userAccount);
-            return StatusCode(200, new AuthInfoDto(userInfo, account.AuthToken));
+            var account = await queryFactory.ResolveQuery<AccountByLoginAndPasswordQuery>()
+                .Execute(command.Login, command.Password);
+            Response.ContentType = "application/json";
+            Response.StatusCode = 200;
+            await Response.WriteAsync(GetTokenData(account), token);
         }
 
         [HttpGet("{accountId}")]
@@ -48,23 +56,59 @@ namespace Mpgp.RestApiServer.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Register(RegisterAccountCommand account, CancellationToken token = default(CancellationToken))
+        public async Task Register(
+            RegisterAccountCommand command,
+            CancellationToken token = default(CancellationToken))
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
-            await commandFactory.Execute(account);
-            var userAccount = await queryFactory.ResolveQuery<AccountByAuthTokenQuery>().Execute(account.AuthToken);
-            var userInfo = AutoMapper.Mapper.Map<Account, AccountDto>(userAccount);
-            return StatusCode(201, new AuthInfoDto(userInfo, account.AuthToken));
+            await commandFactory.Execute(command);
+            var account = await queryFactory.ResolveQuery<AccountByLoginAndPasswordQuery>()
+                .Execute(command.Login, command.Password);
+            Response.ContentType = "application/json";
+            Response.StatusCode = 201;
+            await Response.WriteAsync(GetTokenData(account), token);
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> ValidateToken(ValidateTokenCommand authData, CancellationToken token = default(CancellationToken))
+        private static string BuildJwt(ClaimsIdentity identity)
         {
-            ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
+            var now = DateTime.UtcNow;
+            var jwt = new JwtSecurityToken(
+                AuthOptions.ISSUER,
+                AuthOptions.AUDIENCE,
+                identity.Claims,
+                now,
+                now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-            await commandFactory.Execute(authData);
-            return Ok();
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
+        }
+
+        private static ClaimsIdentity GetIdentity(Account account)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim("AccountId", account.AccountId.ToString()),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, account.Nickname),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, account.Role)
+            };
+            return new ClaimsIdentity(
+                claims,
+                "Token",
+                ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
+        }
+
+        private static string GetTokenData(Account account)
+        {
+            var response = new
+            {
+                access_token = BuildJwt(GetIdentity(account)),
+                user = account
+            };
+            return JsonConvert.SerializeObject(
+                response,
+                new JsonSerializerSettings { Formatting = Formatting.Indented });
         }
     }
 }

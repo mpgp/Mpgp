@@ -28,8 +28,8 @@ namespace Mpgp.Domain.Accounts.Handlers
             var account = AutoMapper.Mapper.Map<RegisterAccountCommand, Account>(command);
             account.Password = Shared.Utils.HashString(command.Password);
             account.Avatar = command.Avatar ?? Shared.Utils.Random.Next(0, 99) + ".jpg";
-            account.AuthToken = command.AuthToken = Shared.Utils.HashString(command.Login + account.Password + account.RegisterDate);
             account.Nickname = command.Nickname = command.Nickname ?? command.Login;
+            account.Role = Account.Roles.User;
 
             await Uow.AccountRepository.AddAsync(account);
             return await Uow.SaveChangesAsync();

@@ -10,9 +10,6 @@ namespace Mpgp.Domain.Accounts.Commands
 {
     public class AuthorizeAccountCommand : ICommand
     {
-        [MaxLength(64)]
-        public string AuthToken { get; set; }
-
         [Required(ErrorMessage = Account.Errors.LoginRequired)]
         [MinLength(3, ErrorMessage = Account.Errors.LoginMinLength)]
         [MaxLength(20, ErrorMessage = Account.Errors.LoginMaxLength)]

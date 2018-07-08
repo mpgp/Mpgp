@@ -1,11 +1,13 @@
 ﻿// Copyright (c) MPGP. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Mpgp.Infrastructure;
 using Mpgp.RestApiServer.WebSockets;
 using Mpgp.WebSocketServer.Core;
@@ -32,6 +34,19 @@ namespace Mpgp.RestApiServer
                 options.SuppressInferBindingSourcesForParameters = false;
                 options.SuppressModelStateInvalidFilter = true;
             });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = false,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -63,9 +78,10 @@ namespace Mpgp.RestApiServer
             app.UseWebSockets(wsOptions);
             app.MapWebSocketManager(Configuration["Params:WebSocketPath"], serviceProvider.GetService<WebSocketRouter>());
 
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller}/{id?}");
+                routes.MapRoute("default", "api/{controller}/{id?}");
             });
         }
     }

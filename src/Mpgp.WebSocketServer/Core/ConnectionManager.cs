@@ -9,18 +9,21 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Microsoft.Extensions.Logging;
+using Mpgp.Abstract;
+using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Dtos;
 
 namespace Mpgp.WebSocketServer.Core
 {
     public class ConnectionManager
     {
+        private readonly ICommandFactory commandFactory;
         private readonly ILogger<WebSocketRouter> logger;
 
-        public ConnectionManager(ILogger<WebSocketRouter> logger)
+        public ConnectionManager(ICommandFactory commandFactory, ILogger<WebSocketRouter> logger)
         {
+            this.commandFactory = commandFactory;
             this.logger = logger;
             ConnectedSockets = new ConcurrentDictionary<AccountDto, WebSocket>();
         }
@@ -48,7 +51,14 @@ namespace Mpgp.WebSocketServer.Core
                 await RemoveSocketAsync(account);
             }
 
-            await socket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
+            try
+            {
+                await socket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
 
         public async Task SendMessageAsync(WebSocket socket, string message)
@@ -79,7 +89,7 @@ namespace Mpgp.WebSocketServer.Core
         {
             foreach (var pair in ConnectedSockets)
             {
-                    await SendMessageAsync(pair.Value, message);
+                await SendMessageAsync(pair.Value, message);
             }
         }
 
@@ -89,7 +99,7 @@ namespace Mpgp.WebSocketServer.Core
 
             foreach (var pair in filteredSockets)
             {
-                    await SendMessageAsync(pair.Value, message);
+                await SendMessageAsync(pair.Value, message);
             }
         }
 
@@ -105,6 +115,7 @@ namespace Mpgp.WebSocketServer.Core
                     Status = Messages.Status.Disconnect
                 };
                 await this.SendMessageToAllExcludeOneAsync(socket, connectionMessage);
+                await commandFactory.Execute(new UpdateLastOnlineCommand(account.AccountId));
             }
             catch (Exception ex)
             {

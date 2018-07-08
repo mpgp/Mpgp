@@ -14,6 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.1" />
+    <PackageReference Include="Moq" Version="4.8.3" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
@@ -23,6 +24,7 @@
     <ProjectReference Include="..\..\src\Mpgp.DataAccess\Mpgp.DataAccess.csproj" />
     <ProjectReference Include="..\..\src\Mpgp.Domain\Mpgp.Domain.csproj" />
     <ProjectReference Include="..\..\src\Mpgp.Infrastructure\Mpgp.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Mpgp.RestApiServer\Mpgp.RestApiServer.csproj" />
     <ProjectReference Include="..\..\src\Mpgp.Shared\Mpgp.Shared.csproj" />
   </ItemGroup>
 </Project>

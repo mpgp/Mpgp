@@ -41,13 +41,12 @@ namespace Mpgp.Infrastructure
             services.AddTransient<IQueryFactory, QueryFactory>();
 
             // todo: register all handlers
-            services.AddTransient<ICommandHandler<AuthorizeAccountCommand>, AuthorizeAccountCommandHandler>();
             services.AddTransient<ICommandHandler<RegisterAccountCommand>, RegisterAccountCommandHandler>();
-            services.AddTransient<ICommandHandler<ValidateTokenCommand>, ValidateTokenCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateLastOnlineCommand>, UpdateLastOnlineCommandHandler>();
 
             // todo: register all queries
-            services.AddTransient<AccountByAuthTokenQuery>();
             services.AddTransient<AccountByIdQuery>();
+            services.AddTransient<AccountByLoginAndPasswordQuery>();
         }
     }
 }

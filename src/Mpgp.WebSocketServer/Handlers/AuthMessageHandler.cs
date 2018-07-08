@@ -3,13 +3,13 @@
 
 using System;
 using System.Threading.Tasks;
-
 using Microsoft.Extensions.Logging;
 using Mpgp.Abstract;
 using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Dtos;
 using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Queries;
+using Mpgp.Shared;
 using Mpgp.Shared.Exceptions;
 using Mpgp.WebSocketServer.Core;
 using Mpgp.WebSocketServer.Messages;
@@ -18,15 +18,12 @@ namespace Mpgp.WebSocketServer.Handlers
 {
     public class AuthMessageHandler : MessageHandler<Messages.Client.AuthMessage>
     {
-        private readonly ICommandFactory commandFactory;
-
         private readonly ILogger<AuthMessageHandler> logger;
 
         private readonly IQueryFactory queryFactory;
 
-        public AuthMessageHandler(ICommandFactory commandFactory, ILogger<AuthMessageHandler> logger, IQueryFactory queryFactory)
+        public AuthMessageHandler(ILogger<AuthMessageHandler> logger, IQueryFactory queryFactory)
         {
-            this.commandFactory = commandFactory;
             this.logger = logger;
             this.queryFactory = queryFactory;
         }
@@ -65,15 +62,15 @@ namespace Mpgp.WebSocketServer.Handlers
         {
             try
             {
-                await commandFactory.Execute(Context.Message.Payload as ValidateTokenCommand);
-
-                var model = await queryFactory.ResolveQuery<AccountByAuthTokenQuery>().Execute(token);
-                if (Context.ConnectionManager.IsConnected(model.AccountId))
+                var accountId = Utils.GetAccountIdFromJwt(token);
+                if (Context.ConnectionManager.IsConnected(accountId))
                 {
                     throw new ConflictException("ALREADY_CONNECTED");
                 }
 
-                return AutoMapper.Mapper.Map<Account, AccountDto>(model);
+                var account = await queryFactory.ResolveQuery<AccountByIdQuery>().Execute(accountId);
+
+                return AutoMapper.Mapper.Map<Account, AccountDto>(account);
             }
             catch (NotFoundException ex)
             {

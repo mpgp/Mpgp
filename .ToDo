@@ -17,19 +17,12 @@ RestApiServer:
         @low
         ☐ why srt use using(fc.create())?
 
-        @low @feature 
-        ☐ think about JWT/owin/katana @created(18-06-16 18:31:03)
-        https://github.com/loktionov129/aspnetcore_identity
-
         @low
         ☐ https://github.com/emonney/QuickApp
         ☐ https://dzone.com/articles/crud-operations-with-aspnet-core-using-angular-5-a
 
         @low
         ☐ think about CancellationToken and CancellationToken.ThrowIfCancellationRequested @created(18-06-16 18:35:26)
-
-        @high @feature 
-        ☐ [Authorize] memcached/redis @created(18-06-16 18:37:03)
 
 WebSocketServer:
     https://github.com/mpgp/Mpgp/projects/3

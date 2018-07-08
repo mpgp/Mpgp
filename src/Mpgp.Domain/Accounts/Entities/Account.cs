@@ -15,9 +15,6 @@ namespace Mpgp.Domain.Accounts.Entities
         [MaxLength(249)]
         public string Avatar { get; set; }
 
-        [MaxLength(64)]
-        public string AuthToken { get; set; }
-
         [MaxLength(249, ErrorMessage = Errors.LanguagesMaxLength)]
         public string Languages { get; set; }
 
@@ -50,6 +47,9 @@ namespace Mpgp.Domain.Accounts.Entities
         [DataType(DataType.Date)]
         public DateTime RegisterDate { get; set; } = DateTime.Now;
 
+        [MaxLength(64)]
+        public string Role { get; set; }
+
         [MaxLength(249, ErrorMessage = Errors.StatusInfoMaxLength)]
         public string StatusInfo { get; set; }
 
@@ -68,7 +68,6 @@ namespace Mpgp.Domain.Accounts.Entities
             public const string PasswordMaxLength = "11";
             public const string PasswordRepeatRequired = "12";
             public const string PasswordRepeatMatch = "13";
-            public const string AuthTokenRequired = "14";
             public const string StatusInfoMaxLength = "15";
             public const string LanguagesMaxLength = "16";
 
@@ -87,10 +86,18 @@ namespace Mpgp.Domain.Accounts.Entities
                 [PasswordMaxLength] = "Password is too long",
                 [PasswordRepeatRequired] = "PasswordRepeat is required",
                 [PasswordRepeatMatch] = "PasswordRepeat must match to a Password",
-                [AuthTokenRequired] = "AuthToken is required",
                 [StatusInfoMaxLength] = "StatusInfo must be a maximum of 249 characters",
                 [LanguagesMaxLength] = "Languages must be a maximum of 249 characters"
             };
+        }
+
+        public class Roles
+        {
+            public const string User = "User";
+            public const string Moderator = "Moderator";
+            public const string Manager = "Manager";
+            public const string Admin = "Admin";
+            public const string SuperAdmin = "SuperAdmin";
         }
     }
 }

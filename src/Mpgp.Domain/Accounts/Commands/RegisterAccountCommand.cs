@@ -10,9 +10,6 @@ namespace Mpgp.Domain.Accounts.Commands
 {
     public class RegisterAccountCommand : ICommand
     {
-        [MaxLength(64)]
-        public string AuthToken { get; set; }
-
         [MaxLength(249)]
         public string Avatar { get; set; }
 

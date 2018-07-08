@@ -19,7 +19,6 @@ namespace Mpgp.Infrastructure
             CreateMap<Account, AccountDto>();
             CreateMap<AuthorizeAccountCommand, Account>();
             CreateMap<RegisterAccountCommand, Account>();
-            CreateMap<ValidateTokenCommand, Account>();
         }
     }
 }

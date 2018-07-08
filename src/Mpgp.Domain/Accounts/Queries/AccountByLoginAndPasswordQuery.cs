@@ -7,15 +7,15 @@ using Mpgp.Domain.Accounts.Entities;
 
 namespace Mpgp.Domain.Accounts.Queries
 {
-    public class AccountByAuthTokenQuery : BaseQuery
+    public class AccountByLoginAndPasswordQuery : BaseQuery
     {
-        public AccountByAuthTokenQuery(IAppUnitOfWork uow)
+        public AccountByLoginAndPasswordQuery(IAppUnitOfWork uow)
             : base(uow)
         {
         }
 
-        public async Task<Account> Execute(string authToken) =>
-            await Uow.AccountRepository.GetByAuthToken(authToken)
+        public async Task<Account> Execute(string login, string password) =>
+            await Uow.AccountRepository.GetByLoginAndPassword(login, Shared.Utils.HashString(password))
             ?? throw new Shared.Exceptions.NotFoundException();
     }
 }

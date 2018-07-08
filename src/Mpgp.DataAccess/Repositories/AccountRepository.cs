@@ -18,9 +18,6 @@ namespace Mpgp.DataAccess.Repositories
         {
         }
 
-        public async Task<Account> GetByAuthToken(string authToken) =>
-            await Context.Accounts.FirstOrDefaultAsync(x => x.AuthToken == authToken);
-
         public async Task<Account> GetById(int accountId) =>
             await Context.Accounts.FirstOrDefaultAsync(x => x.AccountId == accountId);
 
