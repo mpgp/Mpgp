@@ -89,7 +89,7 @@
     "@commitlint/config-lerna-scopes": "7.0.0",
     "@semantic-release/changelog": "2.1.1",
     "@semantic-release/git": "6.0.1",
-    "@semantic-release/github": "4.3.0",
+    "@semantic-release/github": "4.4.0",
     "husky": "0.14.3",
     "lint-staged": "7.2.0"
   }
