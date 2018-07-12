@@ -31,3 +31,4 @@ nuget.exe
 *.ipch
 .vs/
 project.lock.json
+docker/pg_data/
