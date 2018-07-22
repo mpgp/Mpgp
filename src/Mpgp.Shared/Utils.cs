@@ -2,8 +2,10 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace Mpgp.Shared
@@ -25,9 +27,14 @@ namespace Mpgp.Shared
                 throw new ArgumentException("Invalid JWT");
             }
 
-            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            var token = new JwtSecurityToken(jwtEncodedString);
 
-            return int.Parse(token.Claims.First(c => c.Type == "AccountId").Value);
+            return token.Claims.GetAccountId();
+        }
+
+        public static int GetAccountId(this IEnumerable<Claim> claims)
+        {
+            return int.Parse(claims.First(c => c.Type == "AccountId").Value);
         }
     }
 }

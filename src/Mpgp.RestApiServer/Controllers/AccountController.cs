@@ -17,6 +17,7 @@ using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Queries;
 using Mpgp.RestApiServer.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Mpgp.RestApiServer.Controllers
 {
@@ -104,11 +105,15 @@ namespace Mpgp.RestApiServer.Controllers
             var response = new
             {
                 access_token = BuildJwt(GetIdentity(account)),
-                user = account
+                user = AutoMapper.Mapper.Map<Account, AccountDto>(account)
             };
-            return JsonConvert.SerializeObject(
-                response,
-                new JsonSerializerSettings { Formatting = Formatting.Indented });
+            var serializerSettings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            return JsonConvert.SerializeObject(response, serializerSettings);
         }
     }
 }

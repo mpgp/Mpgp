@@ -43,6 +43,8 @@ namespace Mpgp.Infrastructure
             // todo: register all handlers
             services.AddTransient<ICommandHandler<RegisterAccountCommand>, RegisterAccountCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateLastOnlineCommand>, UpdateLastOnlineCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdatePasswordCommand>, UpdatePasswordCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateAccountCommand>, UpdateAccountCommandHandler>();
 
             // todo: register all queries
             services.AddTransient<AccountByIdQuery>();
