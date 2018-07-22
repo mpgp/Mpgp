@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/mpgp/Mpgp/compare/v2.2.1...v2.3.0) (2018-07-22)
+
+
+### Features
+
+* **api:** add account management ([3d06e76](https://github.com/mpgp/Mpgp/commit/3d06e76))
+
 ## [2.2.1](https://github.com/mpgp/Mpgp/compare/v2.2.0...v2.2.1) (2018-07-08)
 
 
