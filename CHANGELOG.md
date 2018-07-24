@@ -1,3 +1,11 @@
+## [2.3.1](https://github.com/mpgp/Mpgp/compare/v2.3.0...v2.3.1) (2018-07-24)
+
+
+### Bug Fixes
+
+* **api:** add checking for oldpassword in UpdatePasswordCommandHandler ([1f48246](https://github.com/mpgp/Mpgp/commit/1f48246))
+* **api:** set errorCode to 400 if modelstate is invalid ([131e8f1](https://github.com/mpgp/Mpgp/commit/131e8f1))
+
 # [2.3.0](https://github.com/mpgp/Mpgp/compare/v2.2.1...v2.3.0) (2018-07-22)
 
 
