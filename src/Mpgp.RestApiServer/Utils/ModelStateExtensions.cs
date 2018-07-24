@@ -20,6 +20,7 @@ namespace Mpgp.RestApiServer.Utils
                 if (!errorList.Messages.TryGetValue(errorCode, out var errorMessage))
                 {
                     errorMessage = "Invalid data";
+                    errorCode = "400";
                 }
 
                 throw new Shared.Exceptions.ValidationException(errorMessage, errorCode);
