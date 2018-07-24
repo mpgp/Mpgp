@@ -22,7 +22,6 @@ namespace Mpgp.Domain.Accounts.Commands
         [MaxLength(249, ErrorMessage = Account.Errors.PasswordMaxLength)]
         public string Password { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         [System.ComponentModel.Description("Repeat the password.")]
         [Required(ErrorMessage = Account.Errors.PasswordRepeatRequired)]
         [Compare("Password", ErrorMessage = Account.Errors.PasswordRepeatMatch)]

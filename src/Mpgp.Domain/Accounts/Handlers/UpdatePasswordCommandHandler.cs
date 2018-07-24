@@ -3,6 +3,7 @@
 
 using System.Threading.Tasks;
 using Mpgp.Domain.Accounts.Commands;
+using Mpgp.Shared;
 using Mpgp.Shared.Exceptions;
 
 namespace Mpgp.Domain.Accounts.Handlers
@@ -20,7 +21,12 @@ namespace Mpgp.Domain.Accounts.Handlers
             var foundAccount = await Uow.AccountRepository.GetById(command.AccountId)
                                ?? throw new NotFoundException();
 
-            foundAccount.Password = Shared.Utils.HashString(command.Password);
+            if (foundAccount.Password != Utils.HashString(command.OldPassword))
+            {
+                throw new ForbiddenException();
+            }
+
+            foundAccount.Password = Utils.HashString(command.Password);
             return await Uow.SaveChangesAsync();
         }
     }
