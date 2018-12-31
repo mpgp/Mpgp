@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+    mpgpdb:
+        environment:
+            - POSTGRES_DB=mpgp
+            - POSTGRES_USER=agent4mpgp
+            - POSTGRES_PASSWORD=v3ry23C93tp422w0Rd
+        image: mpgp129/mpgpdb
+        hostname: mpgpdb
+        container_name: mpgpdb
+        labels:
+            - SERVICE_NAME=mpgpdb
+        volumes:
+            - ./pg_data:/var/lib/postgresql/data

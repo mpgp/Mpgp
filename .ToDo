@@ -1,0 +1,63 @@
+RestApiServer:
+    https://github.com/mpgp/Mpgp/projects/2
+
+    In Progress:
+
+        @high @feature
+        ☐ feature(user): add endpoint for editing profile @created(18-06-16 18:32:24)
+
+    To Do:
+
+        @low
+        ☐ test: strict mocks and other rules @created(18-06-16 18:44:03)
+
+        @low
+        ☐ why srt use using(fc.create())?
+
+        @low
+        ☐ https://github.com/emonney/QuickApp
+        ☐ https://dzone.com/articles/crud-operations-with-aspnet-core-using-angular-5-a
+
+        @low
+        ☐ think about CancellationToken and CancellationToken.ThrowIfCancellationRequested @created(18-06-16 18:35:26)
+
+WebSocketServer:
+    https://github.com/mpgp/Mpgp/projects/3
+
+    To Do:
+
+        @low
+        ☐ on connect: start timer and kick user if he isn't send auth_message at least 1 min.
+
+        @low
+        ☐ thik about SignalR
+        https://codingblast.com/asp-net-core-signalr-chat-angular/
+        https://github.com/Ibro/AngularAspNetCoreSignalR
+        https://github.com/Ibro/SignalRSimpleChat/tree/asp-net-core-angular
+        https://github.com/mpgp/Mpgp/blob/master/src/Mpgp.WebSocketServer/Core/WebSocketRouter.cs
+
+        @low
+        ☐ try to use auth while setup connection
+```
+new WebSocket("ws://username:password@example.com/service");
+new WebSocket("ws://my_token@example.com/service");
+new WebSocket("ws://example.com/service?key1=value1&key2=value2");
+```
+
+Archive:
+✔ https://www.newtonsoft.com/json/help/html/NamingStrategyCamelCase.htm
+✔ https://docs.travis-ci.com/user/multi-os
+✔ https://docs.travis-ci.com/user/languages/csharp/
+✔ https://semantic-release.gitbooks.io/semantic-release/content/docs/recipes/travis-build-stages.html#non-javascript-projects-configuration
+
+✘ https://stormpath.com/blog/routing-in-asp-net-core
+✘ https://habrahabr.ru/post/346850/
+
+✔ https://docs.microsoft.com/en-us/aspnet/core/choose-aspnet-framework?view=aspnetcore-2.1
+✔ https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server?view=aspnetcore-2.1
+✔ https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-2.1
+✔ https://blogs.msdn.microsoft.com/dotnet/2018/05/07/net-core-3-and-support-for-windows-desktop-applications/
+
+Info:
+dotnet style linter
+dotnet prettier
