@@ -37,7 +37,7 @@ namespace Mpgp.WebSocketServer.Core
         public ICollection<AccountDto> GetOnlineUsers() => ConnectedSockets.Keys;
 
         public WebSocket FindSocket(int accountId)
-            => ConnectedSockets.FirstOrDefault(p => p.Key.AccountId == accountId).Value;
+            => ConnectedSockets.FirstOrDefault(p => p.Key.Id == accountId).Value;
 
         public bool IsConnected(int accountId) => FindSocket(accountId) != null;
 
@@ -115,7 +115,7 @@ namespace Mpgp.WebSocketServer.Core
                     Status = Messages.ConnectionStatus.Disconnect
                 };
                 await this.SendMessageToAllExcludeOneAsync(socket, connectionMessage);
-                await commandFactory.Execute(new UpdateLastOnlineCommand(account.AccountId));
+                await commandFactory.Execute(new UpdateLastOnlineCommand(account.Id));
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
     mpgpdb:
@@ -36,5 +36,5 @@ services:
             - VIRTUAL_HOST=mpgpweb
         labels:
             - SERVICE_NAME=mpgpweb
-        command: /bin/sh -c "envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json && dotnet Mpgp.RestApiServer.dll" 
+        command: /bin/sh -c "envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json && dotnet Mpgp.RestApiServer.dll"
 # sed -i "s|%$ENV_KEY1%|$ENV_VALUE1|g;s|%$ENV_KEY2%|$ENV_VALUE2|g" appsettings.json

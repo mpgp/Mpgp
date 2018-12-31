@@ -13,17 +13,17 @@ namespace Mpgp.DataAccess.Core
         where TEntity : class
         where TContext : DbContext
     {
-        public EfRepository(TContext context)
+        protected EfRepository(TContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
             Set = Context.Set<TEntity>();
         }
 
-        public DbSet<TEntity> Set { get; }
-
         protected TContext Context { get; }
 
-        public virtual async Task AddAsync(TEntity entity)
+        private DbSet<TEntity> Set { get; }
+
+        public virtual async Task Add(TEntity entity)
         {
             await Set.AddAsync(entity);
         }

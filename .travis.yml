@@ -1,43 +1,43 @@
 sudo: required
 language: node_js
 node_js:
-  - stable
+    - stable
 cache:
-  yarn: true
-  directories:
-    - node_modules
+    yarn: true
+    directories:
+        - node_modules
 branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
+    only:
+        - master
+        - /^greenkeeper/.*$/
 
 env:
-  global:
-    - BRANCH=$TRAVIS_BRANCH
-    - GITHUB_REPO_OWNER=mpgp
-    - GITHUB_REPO_NAME=Mpgp
-    - GITLAB_REPO_OWNER=mpgp
-    - GITLAB_REPO_NAME=Mpgp
-    - DOCKER_IMAGE_OWNER=mpgp129
-    - DOCKER_IMAGE_NAME_WEB=mpgpweb
-    - DOCKER_IMAGE_NAME_DB=mpgpdb
+    global:
+        - BRANCH=$TRAVIS_BRANCH
+        - GITHUB_REPO_OWNER=mpgp
+        - GITHUB_REPO_NAME=Mpgp
+        - GITLAB_REPO_OWNER=mpgp
+        - GITLAB_REPO_NAME=Mpgp
+        - DOCKER_IMAGE_OWNER=mpgp129
+        - DOCKER_IMAGE_NAME_WEB=mpgpweb
+        - DOCKER_IMAGE_NAME_DB=mpgpdb
 
 before_install:
-  - bash scripts/bash/bash_runner.sh scripts/bash/ci/1_before_install.sh
+    - bash scripts/bash/bash_runner.sh scripts/bash/ci/1_before_install.sh
 
 install:
-  - bash scripts/bash/bash_runner.sh scripts/bash/ci/2_install.sh
+    - bash scripts/bash/bash_runner.sh scripts/bash/ci/2_install.sh
 
 before_script:
-  - bash scripts/bash/bash_runner.sh scripts/bash/ci/3_before_script.sh
+    - bash scripts/bash/bash_runner.sh scripts/bash/ci/3_before_script.sh
 
 script:
-  - bash scripts/bash/bash_runner.sh scripts/bash/ci/4_script.sh
+    - bash scripts/bash/bash_runner.sh scripts/bash/ci/4_script.sh
 
 deploy:
-  - on:
-      branch: "master"
-    provider: script
-    skip_cleanup: true
-    script:
-      - bash scripts/bash/bash_runner.sh scripts/bash/ci/5_deploy.sh
+    - on:
+          branch: "master"
+      provider: script
+      skip_cleanup: true
+      script:
+          - bash scripts/bash/bash_runner.sh scripts/bash/ci/5_deploy.sh

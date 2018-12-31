@@ -2,7 +2,6 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
@@ -15,12 +14,12 @@ namespace Mpgp.DataAccess.Core
     {
         private bool disposed;
 
-        public EfUnitOfWork(TContext context)
+        protected EfUnitOfWork(TContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        protected virtual TContext Context { get; private set; }
+        protected TContext Context { get; private set; }
 
         public void Dispose()
         {
@@ -28,22 +27,9 @@ namespace Mpgp.DataAccess.Core
             GC.SuppressFinalize(this);
         }
 
-        public virtual int SaveChanges()
-        {
-            return Context.SaveChanges();
-        }
+        public virtual Task<int> SaveChanges() => Context.SaveChangesAsync();
 
-        public virtual Task<int> SaveChangesAsync()
-        {
-            return Context.SaveChangesAsync();
-        }
-
-        public virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken)
-        {
-            return Context.SaveChangesAsync(cancellationToken);
-        }
-
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (disposed)
             {

@@ -10,7 +10,7 @@ namespace Mpgp.Domain.Accounts.Commands
 {
     public class UpdateAccountCommand : ICommand
     {
-        public int AccountId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(249)]

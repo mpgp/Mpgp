@@ -8,7 +8,7 @@ namespace Mpgp.Domain
     public interface IRepository<TEntity>
         where TEntity : class
     {
-        Task AddAsync(TEntity entity);
+        Task Add(TEntity entity);
 
         void Remove(TEntity entity);
     }

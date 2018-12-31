@@ -7,11 +7,11 @@ namespace Mpgp.Domain.Accounts.Commands
 {
     public class UpdateLastOnlineCommand : ICommand
     {
-        public UpdateLastOnlineCommand(int accountId)
+        public UpdateLastOnlineCommand(int id)
         {
-            AccountId = accountId;
+            Id = id;
         }
 
-        public int AccountId { get; set; }
+        public int Id { get; set; }
     }
 }

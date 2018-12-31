@@ -29,7 +29,7 @@ namespace Mpgp.RestApiServer.Controllers
                 "{@name} -- {@appId} | userId: {@userId} | status: {@status} | url: '{@url}' | '{@message}' | '{@stack}'",
                 error.Name,
                 error.AppId,
-                error.User?.AccountId,
+                error.User?.Id,
                 error.Status,
                 error.Url,
                 error.Message,

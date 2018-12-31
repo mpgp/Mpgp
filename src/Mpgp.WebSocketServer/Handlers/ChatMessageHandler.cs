@@ -23,7 +23,7 @@ namespace Mpgp.WebSocketServer.Handlers
             var response = new Messages.Server.ChatMessage()
             {
                 Message = Context.Message.Payload.Message,
-                Sender = Context.Sender.AccountId
+                Sender = Context.Sender.Id
             };
             await Context.ConnectionManager.SendMessageToAllAsync(response);
         }

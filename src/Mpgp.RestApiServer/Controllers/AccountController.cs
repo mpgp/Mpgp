@@ -5,9 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Mpgp.Abstract;
@@ -17,7 +15,6 @@ using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Queries;
 using Mpgp.RestApiServer.Utils;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Mpgp.RestApiServer.Controllers
 {
@@ -36,39 +33,33 @@ namespace Mpgp.RestApiServer.Controllers
         }
 
         [HttpPost]
-        public async Task Authorize(
-            AuthorizeAccountCommand command,
-            CancellationToken token = default(CancellationToken))
+        public async Task<IActionResult> Authorize(
+            AuthorizeAccountCommand command)
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
             var account = await queryFactory.ResolveQuery<AccountByLoginAndPasswordQuery>()
                 .Execute(command.Login, command.Password);
-            Response.ContentType = "application/json";
-            Response.StatusCode = 200;
-            await Response.WriteAsync(GetTokenData(account), token);
+            return Ok(GetTokenData(account));
         }
 
-        [HttpGet("{accountId}")]
-        public async Task<IActionResult> GetInfo(int accountId, CancellationToken token = default(CancellationToken))
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetInfo(int id)
         {
-            var response = await queryFactory.ResolveQuery<AccountByIdQuery>().Execute(accountId);
+            var response = await queryFactory.ResolveQuery<AccountByIdQuery>().Execute(id);
             return Ok(AutoMapper.Mapper.Map<Account, AccountDto>(response));
         }
 
         [HttpPut]
-        public async Task Register(
-            RegisterAccountCommand command,
-            CancellationToken token = default(CancellationToken))
+        public async Task<IActionResult> Register(
+            RegisterAccountCommand command)
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
             await commandFactory.Execute(command);
             var account = await queryFactory.ResolveQuery<AccountByLoginAndPasswordQuery>()
                 .Execute(command.Login, command.Password);
-            Response.ContentType = "application/json";
-            Response.StatusCode = 201;
-            await Response.WriteAsync(GetTokenData(account), token);
+            return Ok(GetTokenData(account));
         }
 
         private static string BuildJwt(ClaimsIdentity identity)
@@ -89,7 +80,7 @@ namespace Mpgp.RestApiServer.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim("AccountId", account.AccountId.ToString()),
+                new Claim("Id", account.Id.ToString()),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, account.Nickname),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, account.Role)
             };
@@ -107,13 +98,8 @@ namespace Mpgp.RestApiServer.Controllers
                 access_token = BuildJwt(GetIdentity(account)),
                 user = AutoMapper.Mapper.Map<Account, AccountDto>(account)
             };
-            var serializerSettings = new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented,
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
 
-            return JsonConvert.SerializeObject(response, serializerSettings);
+            return JsonConvert.SerializeObject(response, Shared.Utils.JsonSettings);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Mpgp.Domain.Accounts.Entities
     public class Account
     {
         [Key]
-        public int AccountId { get; set; }
+        public int Id { get; set; }
 
         [MaxLength(249)]
         public string Avatar { get; set; }

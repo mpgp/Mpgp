@@ -1,7 +1,6 @@
 ﻿// Copyright (c) MPGP. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,35 +18,29 @@ namespace Mpgp.RestApiServer.Controllers
     public class ManageController : ControllerBase
     {
         private readonly ICommandFactory commandFactory;
-        private readonly IQueryFactory queryFactory;
 
-        public ManageController(ICommandFactory commandFactory, IQueryFactory queryFactory)
+        public ManageController(ICommandFactory commandFactory)
         {
             this.commandFactory = commandFactory;
-            this.queryFactory = queryFactory;
         }
 
         [Authorize]
         [HttpPatch]
-        public async Task UpdateAccount(
-            UpdateAccountCommand command,
-            CancellationToken token = default(CancellationToken))
+        public async Task UpdateAccount(UpdateAccountCommand command)
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
-            command.AccountId = User.Claims.GetAccountId();
+            command.Id = User.Claims.GetAccountId();
             await commandFactory.Execute(command);
         }
 
         [Authorize]
         [HttpPatch("password")]
-        public async Task UpdatePassword(
-            UpdatePasswordCommand command,
-            CancellationToken token = default(CancellationToken))
+        public async Task UpdatePassword(UpdatePasswordCommand command)
         {
             ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
 
-            command.AccountId = User.Claims.GetAccountId();
+            command.Id = User.Claims.GetAccountId();
             await commandFactory.Execute(command);
         }
     }

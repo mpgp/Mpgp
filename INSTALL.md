@@ -24,6 +24,12 @@ cp ./tools/appsettings.default.json ./tools/appsettings.json
 nano ./tools/appsettings.json
 ```
 
+### Change params:
+
+DefaultConnectionString to "psql"
+
+RestApiUrl to "http://0.0.0.0:5000"
+
 ---
 
 ## Configure database
@@ -37,16 +43,6 @@ Grant all privileges on database "mpgp" to "agent4mpgp"
 ```
 
 ---
-
-## Update database, create tables
-
-```sh
-# Recommended using dotnet CLI
-(cd ./src/Mpgp.DataAccess && dotnet ef database update)
-
-# Or run migrator script
-(cd ./scripts/bash/ && ./postgres_migrator.sh)
-```
 
 ## Logs
 

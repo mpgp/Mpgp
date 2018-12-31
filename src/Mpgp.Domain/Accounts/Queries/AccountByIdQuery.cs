@@ -14,8 +14,8 @@ namespace Mpgp.Domain.Accounts.Queries
         {
         }
 
-        public async Task<Account> Execute(int accountId) =>
-            await Uow.AccountRepository.GetById(accountId)
+        public async Task<Account> Execute(int id) =>
+            await Uow.AccountRepository.GetById(id)
             ?? throw new Shared.Exceptions.NotFoundException();
     }
 }

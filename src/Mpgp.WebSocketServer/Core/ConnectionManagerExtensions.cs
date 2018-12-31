@@ -8,19 +8,11 @@ using System.Threading.Tasks;
 using Mpgp.WebSocketServer.Abstract;
 using Mpgp.WebSocketServer.Messages;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Mpgp.WebSocketServer.Core
 {
     public static class ConnectionManagerExtensions
     {
-        private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() },
-            Formatting = Formatting.Indented,
-            NullValueHandling = NullValueHandling.Ignore
-        };
-
         public static async Task SendMessageAsync<T>(
             this ConnectionManager connectionManager,
             WebSocket socket,
@@ -68,7 +60,7 @@ namespace Mpgp.WebSocketServer.Core
                 Error = error,
                 Payload = message
             };
-            return JsonConvert.SerializeObject(response, JsonSettings);
+            return JsonConvert.SerializeObject(response, Shared.Utils.JsonSettings);
         }
     }
 }

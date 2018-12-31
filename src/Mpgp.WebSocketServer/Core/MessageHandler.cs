@@ -8,7 +8,6 @@ using System.Net.WebSockets;
 using System.Threading.Tasks;
 
 using Mpgp.WebSocketServer.Abstract;
-using Mpgp.WebSocketServer.Handlers;
 using Mpgp.WebSocketServer.Messages;
 
 namespace Mpgp.WebSocketServer.Core

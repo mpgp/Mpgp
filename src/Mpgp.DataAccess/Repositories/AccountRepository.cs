@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Mpgp.DataAccess.Core;
 using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Repositories;
-using Mpgp.Shared.Exceptions;
 
 namespace Mpgp.DataAccess.Repositories
 {
@@ -18,8 +17,8 @@ namespace Mpgp.DataAccess.Repositories
         {
         }
 
-        public async Task<Account> GetById(int accountId) =>
-            await Context.Accounts.FirstOrDefaultAsync(x => x.AccountId == accountId);
+        public async Task<Account> GetById(int id) =>
+            await Context.Accounts.FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<Account> GetByLogin(string login) =>
             await Context.Accounts.FirstOrDefaultAsync(x => x.Login == login);

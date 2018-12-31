@@ -5,6 +5,7 @@ using System;
 using System.IO;
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -34,37 +35,42 @@ namespace Mpgp.RestApiServer
                 .GetCurrentClassLogger();
             logger.Debug("Init main...");
 
-            var host = BuildWebHost(args);
-            using (var scope = host.Services.CreateScope())
+            try
             {
-                try
+                var host = BuildWebHost(args);
+                using (var scope = host.Services.CreateScope())
                 {
-                    // var context = scope.ServiceProvider.GetRequiredService<Data.Access.AppDbContext>();
-                    // Data.Access.AppDbContextInitializer.Initialize(context);
-                    host.Run();
+                    var services = scope.ServiceProvider;
+                    var context = services.GetRequiredService<DataAccess.AppDbContext>();
+                    context.Database.Migrate();
                 }
-                catch (Exception ex)
-                {
-                    logger.Error(ex, "An error occurred while seeding the database.");
-                    throw;
-                }
-                finally
-                {
-                    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                    NLog.LogManager.Shutdown();
-                }
+
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "An error occurred while starting the host.");
+                throw;
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                NLog.LogManager.Shutdown();
             }
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        private static IWebHost BuildWebHost(string[] args) =>
             new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
+                    var env = hostingContext.HostingEnvironment.EnvironmentName;
                     config.SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile(Path.GetFullPath(Path.Combine(@"../../tools/appsettings.json")), true, true);
+                        .AddJsonFile(Path.GetFullPath(Path.Combine("../../tools/appsettings.json")), true, true)
+                        .AddJsonFile(Path.GetFullPath(Path.Combine($"../../tools/appsettings.{env}.json")), true, true)
+                        .AddJsonFile($"appsettings.{env}.json", true, true);
 
                     config.AddEnvironmentVariables();
 

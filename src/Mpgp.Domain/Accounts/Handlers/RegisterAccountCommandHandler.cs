@@ -31,8 +31,8 @@ namespace Mpgp.Domain.Accounts.Handlers
             account.Nickname = command.Nickname = command.Nickname ?? command.Login;
             account.Role = Account.Roles.User;
 
-            await Uow.AccountRepository.AddAsync(account);
-            return await Uow.SaveChangesAsync();
+            await Uow.AccountRepository.Add(account);
+            return await Uow.SaveChanges();
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Mpgp.Domain
     {
         protected BaseQuery(IAppUnitOfWork uow) => Uow = uow;
 
-        protected IAppUnitOfWork Uow { get; private set; }
+        protected IAppUnitOfWork Uow { get; }
     }
 }

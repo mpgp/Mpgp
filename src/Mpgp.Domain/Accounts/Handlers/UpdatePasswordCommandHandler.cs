@@ -18,7 +18,7 @@ namespace Mpgp.Domain.Accounts.Handlers
 
         public override async Task<int> Execute(UpdatePasswordCommand command)
         {
-            var foundAccount = await Uow.AccountRepository.GetById(command.AccountId)
+            var foundAccount = await Uow.AccountRepository.GetById(command.Id)
                                ?? throw new NotFoundException();
 
             if (foundAccount.Password != Utils.HashString(command.OldPassword))
@@ -27,7 +27,7 @@ namespace Mpgp.Domain.Accounts.Handlers
             }
 
             foundAccount.Password = Utils.HashString(command.Password);
-            return await Uow.SaveChangesAsync();
+            return await Uow.SaveChanges();
         }
     }
 }

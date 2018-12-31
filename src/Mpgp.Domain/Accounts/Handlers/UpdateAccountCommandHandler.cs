@@ -17,7 +17,7 @@ namespace Mpgp.Domain.Accounts.Handlers
 
         public override async Task<int> Execute(UpdateAccountCommand command)
         {
-            var foundAccount = await Uow.AccountRepository.GetById(command.AccountId)
+            var foundAccount = await Uow.AccountRepository.GetById(command.Id)
                                ?? throw new NotFoundException();
 
             foundAccount.Avatar = command.Avatar;
@@ -25,7 +25,7 @@ namespace Mpgp.Domain.Accounts.Handlers
             foundAccount.Nickname = command.Nickname;
             foundAccount.StatusInfo = command.StatusInfo;
 
-            return await Uow.SaveChangesAsync();
+            return await Uow.SaveChanges();
         }
     }
 }

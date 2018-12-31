@@ -11,15 +11,5 @@ namespace Mpgp.Shared.Exceptions
             : base("Client exception")
         {
         }
-
-        public ClientException(string message)
-            : base(message)
-        {
-        }
-
-        public ClientException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
     }
 }

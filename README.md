@@ -25,7 +25,7 @@ https://mpgp.github.io/#/spec/
 
 ## Development server
 
-Run `bash ./scripts/bash/docker/compose.sh dev` for a dev server.
+Run `yarn run start:dev` for a dev server.
 
 Api will available on `http://localhost:5000/api/{controller}/{params?}`
 
@@ -35,7 +35,7 @@ WebSocket will available on `ws://localhost:5000/elite-crew`
 ## Run tests
 
 ```sh
-bash scripts/bash/test_runner.sh
+yarn run test:run
 ```
 
 ---

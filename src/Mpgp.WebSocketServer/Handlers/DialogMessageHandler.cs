@@ -36,7 +36,7 @@ namespace Mpgp.WebSocketServer.Handlers
 
             logger.LogDebug("Send DialogMessage to {@Receiver}: {@json}", Context.Message.Payload.Receiver, Context.Message.Payload);
             response.Message = Context.Message.Payload.Message;
-            response.Sender = Context.Sender.AccountId;
+            response.Sender = Context.Sender.Id;
             await Context.ConnectionManager.SendMessageAsync(receiver, response);
         }
     }

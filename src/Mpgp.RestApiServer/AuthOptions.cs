@@ -7,7 +7,7 @@ namespace Mpgp.RestApiServer
 {
     public class AuthOptions
     {
-        public const string AUDIENCE = "http://localhost:51884/";
+        public const string AUDIENCE = "http://localhost:5000/";
         public const string ISSUER = "MyAuthServer";
         public const int LIFETIME = 1;
 

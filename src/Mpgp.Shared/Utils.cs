@@ -8,10 +8,20 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 namespace Mpgp.Shared
 {
     public static class Utils
     {
+        public static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() },
+            Formatting = Formatting.Indented,
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
         public static readonly Random Random = new Random();
 
         public static string HashString(string text) => string.Concat(
@@ -34,7 +44,7 @@ namespace Mpgp.Shared
 
         public static int GetAccountId(this IEnumerable<Claim> claims)
         {
-            return int.Parse(claims.First(c => c.Type == "AccountId").Value);
+            return int.Parse(claims.First(c => c.Type == "Id").Value);
         }
     }
 }

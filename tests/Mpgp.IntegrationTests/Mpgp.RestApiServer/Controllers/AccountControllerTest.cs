@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using Mpgp.Abstract;
 using Mpgp.DataAccess;
+using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Dtos;
 using Mpgp.Domain.Accounts.Entities;
+using Mpgp.Domain.Accounts.Handlers;
 using Mpgp.Domain.Accounts.Queries;
 using Mpgp.RestApiServer.Controllers;
 using NUnit.Framework;
@@ -18,12 +20,6 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
     public class AccountControllerTest
     {
         private AppUnitOfWork uow;
-
-        [OneTimeSetUp]
-        public void OneTimeSetup()
-        {
-            // AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<Infrastructure.AutoMapperProfile>());
-        }
 
         [SetUp]
         public void Setup()
@@ -41,17 +37,18 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
             uow.Dispose();
         }
 
-/*        [Test]
+        [Test]
         public async Task Authorize_ExpectSuccessResponse()
         {
             // Arrange
-            await uow.AccountRepository.AddAsync(new Account()
+            await uow.AccountRepository.Add(new Account()
             {
                 Login = "admin2018",
                 Nickname = "AlexAnder",
-                Password = Shared.Utils.HashString("12345678asdf")
+                Password = Shared.Utils.HashString("12345678asdf"),
+                Role = Account.Roles.User
             });
-            await uow.SaveChangesAsync();
+            await uow.SaveChanges();
 
             var command = new AuthorizeAccountCommand()
             {
@@ -69,20 +66,20 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
 
             // Assert
             Assert.Pass();
-        }*/
+        }
 
         [Test]
         public async Task GetInfo_ExpectSuccessResponse()
         {
             // Arrange
-            await uow.AccountRepository.AddAsync(new Account()
+            await uow.AccountRepository.Add(new Account()
             {
                 Avatar = "29.jpg",
                 Login = "admin2018",
                 Nickname = "AlexAnder",
                 Password = Shared.Utils.HashString("12345678asdf")
             });
-            await uow.SaveChangesAsync();
+            await uow.SaveChanges();
 
             var mockQueryFactory = new Mock<IQueryFactory>();
             mockQueryFactory.Setup(repo => repo.ResolveQuery<AccountByIdQuery>())
@@ -91,7 +88,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
             // Act
             var account = await uow.AccountRepository.GetByLogin("admin2018");
             var controller = new AccountController(null, mockQueryFactory.Object);
-            var okObjectResult = await controller.GetInfo(account.AccountId) as OkObjectResult;
+            var okObjectResult = await controller.GetInfo(account.Id) as OkObjectResult;
 
             // Assert
             Assert.NotNull(okObjectResult);
@@ -102,7 +99,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
             Assert.AreEqual("29.jpg", model.Avatar);
         }
 
-/*        [Test]
+        [Test]
         public async Task Register_ExpectSuccessResponse()
         {
             // Arrange
@@ -132,6 +129,6 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
 
             // Assert
             Assert.Pass();
-        }*/
+        }
     }
 }

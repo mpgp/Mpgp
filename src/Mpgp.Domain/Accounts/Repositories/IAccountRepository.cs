@@ -8,7 +8,7 @@ namespace Mpgp.Domain.Accounts.Repositories
 {
     public interface IAccountRepository : IRepository<Account>
     {
-        Task<Account> GetById(int accountId);
+        Task<Account> GetById(int id);
 
         Task<Account> GetByLogin(string login);
 

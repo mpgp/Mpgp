@@ -46,6 +46,7 @@ namespace Mpgp.IntegrationTests
         [Order(1)]
         public void AuthorizeNonExistingAccount_ExpectNotFoundException()
         {
+            // Arrange
             var account = new AuthorizeAccountCommand()
             {
                 Login = "admin2018",
@@ -53,6 +54,7 @@ namespace Mpgp.IntegrationTests
             };
             var query = new AccountByLoginAndPasswordQuery(uow);
 
+            // Assert
             Assert.ThrowsAsync<NotFoundException>(async () => await query.Execute(account.Login, account.Password));
         }
 
@@ -60,6 +62,7 @@ namespace Mpgp.IntegrationTests
         [Order(2)]
         public async Task RegisterAccount_ExpectSuccessResponse()
         {
+            // Arrange
             var account = new RegisterAccountCommand()
             {
                 Login = "admin2018",
@@ -69,8 +72,10 @@ namespace Mpgp.IntegrationTests
             var handler = new RegisterAccountCommandHandler(uow);
             disposables.Add(handler);
 
+            // Act
             var result = await handler.Execute(account);
 
+            // Assert
             Assert.AreEqual(1, result);
         }
 
@@ -78,6 +83,7 @@ namespace Mpgp.IntegrationTests
         [Order(3)]
         public void RegisterAccount_ExpectConflictException()
         {
+            // Arrange
             var account = new RegisterAccountCommand()
             {
                 Login = "admin2018",
@@ -87,6 +93,7 @@ namespace Mpgp.IntegrationTests
             var handler = new RegisterAccountCommandHandler(uow);
             disposables.Add(handler);
 
+            // Assert
             Assert.ThrowsAsync<ConflictException>(async () => await handler.Execute(account));
         }
 

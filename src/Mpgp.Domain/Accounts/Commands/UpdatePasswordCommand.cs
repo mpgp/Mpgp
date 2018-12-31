@@ -10,7 +10,7 @@ namespace Mpgp.Domain.Accounts.Commands
 {
     public class UpdatePasswordCommand : ICommand
     {
-        public int AccountId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = Account.Errors.PasswordRequired)]
         [MinLength(8, ErrorMessage = Account.Errors.PasswordMinLength)]

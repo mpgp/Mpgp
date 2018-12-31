@@ -7,7 +7,7 @@ namespace Mpgp.Domain.Accounts.Dtos
 {
     public class AccountDto
     {
-        public int AccountId { get; set; }
+        public int Id { get; set; }
 
         public string Avatar { get; set; }
 

@@ -12,7 +12,7 @@ namespace Mpgp.Domain
             Uow = uow;
         }
 
-        protected IAppUnitOfWork Uow { get; private set; }
+        protected IAppUnitOfWork Uow { get; }
 
         public abstract System.Threading.Tasks.Task<int> Execute(TCommand command);
 

@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
     mpgpdb:
@@ -13,28 +13,3 @@ services:
             - SERVICE_NAME=mpgpdb
         volumes:
             - ./pg_data:/var/lib/postgresql/data
-
-    mpgpweb:
-        links:
-            - mpgpdb
-        depends_on:
-            - mpgpdb
-        image: mpgp129/mpgpweb
-        hostname: mpgpweb
-        expose:
-            - 5000
-        ports:
-            - 5000:5000
-        container_name: mpgpweb
-        environment:
-            - DB_HOST=mpgpdb
-            - DB_USER_NAME=agent4mpgp
-            - DB_USER_PASSWORD=v3ry23C93tp422w0Rd
-            - DB_NAME=mpgp
-            - REST_API_URL=http://0.0.0.0:5000
-            - APP_ENV=local
-            - VIRTUAL_HOST=mpgpweb
-        labels:
-            - SERVICE_NAME=mpgpweb
-        command: /bin/sh -c "envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json && dotnet Mpgp.RestApiServer.dll" 
-# sed -i "s|%$ENV_KEY1%|$ENV_VALUE1|g;s|%$ENV_KEY2%|$ENV_VALUE2|g" appsettings.json
