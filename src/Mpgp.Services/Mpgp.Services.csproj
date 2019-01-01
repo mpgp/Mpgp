@@ -1,8 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeFrameworkVersion>2.1.6</RuntimeFrameworkVersion>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <GenerateFullPaths>true</GenerateFullPaths>
+    <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>../../tools/Mpgp.ruleset</CodeAnalysisRuleSet>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\tools\stylecop.json" />
