@@ -19,6 +19,7 @@ namespace Mpgp.Infrastructure
         public static void AddInfrastructure(this IServiceCollection services)
         {
             services.AddAutoMapper();
+            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
 
             services.AddTransient(sp =>
             {
