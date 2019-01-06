@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/mpgp/Mpgp/compare/v2.3.1...v2.3.2) (2019-01-06)
+
+
+### Bug Fixes
+
+* **core:** add missing mapper initialization ([ef60f3c](https://github.com/mpgp/Mpgp/commit/ef60f3c))
+
 ## [2.3.1](https://github.com/mpgp/Mpgp/compare/v2.3.0...v2.3.1) (2018-07-24)
 
 
