@@ -8,6 +8,10 @@ services:
             - POSTGRES_PASSWORD=v3ry23C93tp422w0Rd
         image: mpgp129/mpgpdb
         hostname: mpgpdb
+        expose:
+            - 5432
+        ports:
+            - 5432:5432
         container_name: mpgpdb
         labels:
             - SERVICE_NAME=mpgpdb
