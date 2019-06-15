@@ -13,3 +13,11 @@
 );
 
 CREATE UNIQUE INDEX "IX_Accounts_Login" ON "Accounts" ("Login");
+
+CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId"    varchar(150) not null constraint "PK___EFMigrationsHistory" primary key,
+    "ProductVersion" varchar(32)  not null
+);
+
+INSERT INTO "__EFMigrationsHistory"
+VALUES ('20181126074833_Initial', '2.2.4-servicing-10062');
