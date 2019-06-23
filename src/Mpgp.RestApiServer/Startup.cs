@@ -1,6 +1,7 @@
 ﻿// Copyright (c) MPGP. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
+using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Mpgp.Infrastructure;
+using Mpgp.RestApiServer.Utils;
 using Mpgp.RestApiServer.WebSockets;
 using Mpgp.WebSocketServer.Core;
 
@@ -44,13 +46,13 @@ namespace Mpgp.RestApiServer
                         ValidateAudience = false,
                         ValidateLifetime = false,
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true,
+                        ValidateIssuerSigningKey = true
                     };
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, System.IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseCors("MyPolicy");
             app.UseDefaultFiles();
@@ -61,17 +63,17 @@ namespace Mpgp.RestApiServer
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
 
-                // todo : removee
-                app.UseMiddleware(typeof(Utils.ErrorHandlingMiddleware));
+                // todo : remove
+                app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             }
             else
             {
-                app.UseMiddleware(typeof(Utils.ErrorHandlingMiddleware));
+                app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             }
 
-            var wsOptions = new WebSocketOptions()
+            var wsOptions = new WebSocketOptions
             {
-                KeepAliveInterval = System.TimeSpan.FromSeconds(60),
+                KeepAliveInterval = TimeSpan.FromSeconds(60),
                 ReceiveBufferSize = 4 * 1024
             };
 

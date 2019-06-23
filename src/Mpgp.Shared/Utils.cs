@@ -18,7 +18,7 @@ namespace Mpgp.Shared
         public static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
         {
             ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() },
-            Formatting = Formatting.Indented,
+            Formatting = Formatting.None,
             NullValueHandling = NullValueHandling.Ignore
         };
 

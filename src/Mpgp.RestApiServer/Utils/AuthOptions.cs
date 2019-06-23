@@ -3,7 +3,7 @@
 
 using Microsoft.IdentityModel.Tokens;
 
-namespace Mpgp.RestApiServer
+namespace Mpgp.RestApiServer.Utils
 {
     public class AuthOptions
     {
