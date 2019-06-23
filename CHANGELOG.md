@@ -5,6 +5,16 @@
 
 * **core:** update .gitignore ([6e5f04f](https://github.com/mpgp/Mpgp/commit/6e5f04f))
 * **core:** update configs for mpgpdb ([069ce9a](https://github.com/mpgp/Mpgp/commit/069ce9a))
+* **core:** update docker.compose.prod.yml ([a42c41e](https://github.com/mpgp/Mpgp/commit/a42c41e))
+* **core:** update initial migration ([6272014](https://github.com/mpgp/Mpgp/commit/6272014))
+
+## [2.3.3](https://github.com/mpgp/Mpgp/compare/v2.3.2...v2.3.3) (2019-06-23)
+
+
+### Bug Fixes
+
+* **core:** update .gitignore ([6e5f04f](https://github.com/mpgp/Mpgp/commit/6e5f04f))
+* **core:** update configs for mpgpdb ([069ce9a](https://github.com/mpgp/Mpgp/commit/069ce9a))
 * **core:** update initial migration ([6272014](https://github.com/mpgp/Mpgp/commit/6272014))
 
 ## [2.3.2](https://github.com/mpgp/Mpgp/compare/v2.3.1...v2.3.2) (2019-01-06)
