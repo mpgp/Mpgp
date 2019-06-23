@@ -79,7 +79,7 @@
         "lint": "echo linting staged .cs files",
         "precommit": "lint-staged",
         "start:dev": "bash ./scripts/bash/docker/compose.sh dev",
-        "start:pod": "bash ./scripts/bash/docker/compose.sh prod",
+        "start:prod": "bash ./scripts/bash/docker/compose.sh prod",
         "test": "echo Please use yarn run test:run",
         "test:run": "bash ./scripts/bash/test_runner.sh"
     },

@@ -8,6 +8,10 @@ services:
             - POSTGRES_PASSWORD=v3ry23C93tp422w0Rd
         image: mpgp129/mpgpdb
         hostname: mpgpdb
+        expose:
+            - 5432
+        ports:
+            - 5432:5432
         container_name: mpgpdb
         labels:
             - SERVICE_NAME=mpgpdb
@@ -36,5 +40,14 @@ services:
             - VIRTUAL_HOST=mpgpweb
         labels:
             - SERVICE_NAME=mpgpweb
-        command: /bin/sh -c "envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json && dotnet Mpgp.RestApiServer.dll"
+        command: >
+            /bin/sh -c "
+            apt-get install -y wget
+            && wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
+            && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
+            && rm dockerize-linux-amd64-v0.6.1.tar.gz
+            && dockerize -wait tcp://mpgpdb:5432 -timeout 1m
+            && envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json
+            && dotnet Mpgp.RestApiServer.dll"
+
 # sed -i "s|%$ENV_KEY1%|$ENV_VALUE1|g;s|%$ENV_KEY2%|$ENV_VALUE2|g" appsettings.json
