@@ -16,7 +16,7 @@ services:
         labels:
             - SERVICE_NAME=mpgpdb
         volumes:
-            - ./pg_data:/var/lib/postgresql/data
+            - postgres:/var/lib/postgresql/data
 
     mpgpweb:
         links:
@@ -48,6 +48,22 @@ services:
             && rm dockerize-linux-amd64-v0.6.1.tar.gz
             && dockerize -wait tcp://mpgpdb:5432 -timeout 1m
             && envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json
+            && sed -i ‘s|http://localhost:9200|http://mpgpelastickibana:9200|g' nlog.config
             && dotnet Mpgp.RestApiServer.dll"
 
+    mpgpelastickibana:
+        image: nshou/elasticsearch-kibana
+        hostname: mpgpelastickibana
+        expose:
+            - 9200
+            - 5601
+        ports:
+            - 9200:9200
+            - 5601:5601
+        container_name: mpgpelastickibana
+        labels:
+            - SERVICE_NAME=mpgpelastickibana
+
+volumes:
+    postgres:
 # sed -i "s|%$ENV_KEY1%|$ENV_VALUE1|g;s|%$ENV_KEY2%|$ENV_VALUE2|g" appsettings.json

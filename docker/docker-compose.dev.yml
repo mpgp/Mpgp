@@ -16,4 +16,21 @@ services:
         labels:
             - SERVICE_NAME=mpgpdb
         volumes:
-            - ./pg_data:/var/lib/postgresql/data
+            - postgres:/var/lib/postgresql/data
+
+    mpgpelastickibana:
+        image: nshou/elasticsearch-kibana
+        hostname: mpgpelastickibana
+        expose:
+            - 9200
+            - 5601
+        ports:
+            - 9200:9200
+            - 5601:5601
+        container_name: mpgpelastickibana
+        labels:
+            - SERVICE_NAME=mpgpelastickibana
+
+volumes:
+    postgres:
+# sed -i "s|%$ENV_KEY1%|$ENV_VALUE1|g;s|%$ENV_KEY2%|$ENV_VALUE2|g" appsettings.json
