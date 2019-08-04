@@ -16,4 +16,20 @@ services:
         labels:
             - SERVICE_NAME=mpgpdb
         volumes:
-            - ./pg_data:/var/lib/postgresql/data
+            - postgres:/var/lib/postgresql/data
+
+    elastickibana:
+        image: nshou/elasticsearch-kibana
+        hostname: elastickibana
+        expose:
+            - 9200
+            - 5601
+        ports:
+            - 9200:9200
+            - 5601:5601
+        container_name: elastickibana
+        labels:
+            - SERVICE_NAME=elastickibana
+
+volumes:
+    postgres:
