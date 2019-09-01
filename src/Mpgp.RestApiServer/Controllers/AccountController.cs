@@ -2,20 +2,22 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Mpgp.Abstract;
 using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Dtos;
 using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Queries;
+using Mpgp.Infrastructure.Filters;
 using Mpgp.RestApiServer.ApiServices;
-using Mpgp.RestApiServer.Utils;
 
 namespace Mpgp.RestApiServer.Controllers
 {
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ServiceFilter(typeof(ValidationFilterAttribute<Account.Errors>))]
     public class AccountController : ControllerBase
     {
         private readonly ICommandFactory commandFactory;
@@ -30,8 +32,6 @@ namespace Mpgp.RestApiServer.Controllers
         [HttpPost]
         public async Task<AuthInfoDto> Authorize(AuthorizeAccountCommand command)
         {
-            ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
-
             var account = await queryFactory.ResolveQuery<AccountByLoginAndPasswordQuery>()
                 .Execute(command.Login, command.Password);
 
@@ -48,8 +48,6 @@ namespace Mpgp.RestApiServer.Controllers
         [HttpPut]
         public async Task<AuthInfoDto> Register(RegisterAccountCommand command)
         {
-            ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
-
             await commandFactory.Execute(command);
             var account = await queryFactory.ResolveQuery<AccountByLoginAndPasswordQuery>()
                 .Execute(command.Login, command.Password);
