@@ -1,3 +1,20 @@
+# [2.4.0](https://github.com/mpgp/Mpgp/compare/v2.3.2...v2.4.0) (2019-09-07)
+
+
+### Bug Fixes
+
+* **core:** update .gitignore ([6e5f04f](https://github.com/mpgp/Mpgp/commit/6e5f04f))
+* **core:** update commitlint rules ([bb6788d](https://github.com/mpgp/Mpgp/commit/bb6788d))
+* **core:** update configs for mpgpdb ([069ce9a](https://github.com/mpgp/Mpgp/commit/069ce9a))
+* **core:** update docker.compose.prod.yml ([a42c41e](https://github.com/mpgp/Mpgp/commit/a42c41e))
+* **core:** update initial migration ([6272014](https://github.com/mpgp/Mpgp/commit/6272014))
+
+
+### Features
+
+* **core:** add elasticsearch and kibana support ([9e00ae2](https://github.com/mpgp/Mpgp/commit/9e00ae2))
+* **core:** add grafana + prometheus ([b7bd8a1](https://github.com/mpgp/Mpgp/commit/b7bd8a1))
+
 ## [2.3.3](https://github.com/mpgp/Mpgp/compare/v2.3.2...v2.3.3) (2019-06-23)
 
 
