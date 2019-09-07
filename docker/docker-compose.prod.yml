@@ -8,17 +8,36 @@ services:
             - POSTGRES_PASSWORD=v3ry23C93tp422w0Rd
         image: mpgp129/mpgpdb
         hostname: mpgpdb
+        expose:
+            - 5432
+        ports:
+            - 5432:5432
         container_name: mpgpdb
         labels:
             - SERVICE_NAME=mpgpdb
         volumes:
-            - ./pg_data:/var/lib/postgresql/data
+            - postgres:/var/lib/postgresql/data
+
+    mpgpelastickibana:
+        image: mpgp129/mpgpelastickibana
+        hostname: mpgpelastickibana
+        expose:
+            - 9200
+            - 5601
+        ports:
+            - 9200:9200
+            - 5601:5601
+        container_name: mpgpelastickibana
+        labels:
+            - SERVICE_NAME=mpgpelastickibana
 
     mpgpweb:
         links:
             - mpgpdb
+            - mpgpelastickibana
         depends_on:
             - mpgpdb
+            - mpgpelastickibana
         image: mpgp129/mpgpweb
         hostname: mpgpweb
         expose:
@@ -36,5 +55,51 @@ services:
             - VIRTUAL_HOST=mpgpweb
         labels:
             - SERVICE_NAME=mpgpweb
-        command: /bin/sh -c "envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json && dotnet Mpgp.RestApiServer.dll"
+        command: >
+            /bin/sh -c "
+            apt-get install -y wget
+            && wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
+            && tar -C ./ -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
+            && ./dockerize -wait tcp://mpgpdb:5432 -timeout 1m
+            && rm dockerize-linux-amd64-v0.6.1.tar.gz dockerize
+            && envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json
+            && sed -i 's|http://localhost:9200|http://mpgpelastickibana:9200|g' nlog.config
+            && dotnet Mpgp.RestApiServer.dll"
+
+    mpgpprometheus:
+        links:
+            - mpgpweb
+        depends_on:
+            - mpgpweb
+        image: mpgp129/mpgpprometheus
+        hostname: mpgpprometheus
+        expose:
+            - 9090
+        ports:
+            - 9090:9090
+        container_name: mpgpprometheus
+        labels:
+            - SERVICE_NAME=mpgpprometheus
+
+    mpgpgrafana:
+        environment:
+            - GF_SECURITY_ADMIN_PASSWORD=12345678
+        links:
+            - mpgpelastickibana
+            - mpgpprometheus
+        depends_on:
+            - mpgpelastickibana
+            - mpgpprometheus
+        image: mpgp129/mpgpgrafana
+        hostname: mpgpgrafana
+        expose:
+            - 3000
+        ports:
+            - 3000:3000
+        container_name: mpgpgrafana
+        labels:
+            - SERVICE_NAME=mpgpgrafana
+
+volumes:
+    postgres:
 # sed -i "s|%$ENV_KEY1%|$ENV_VALUE1|g;s|%$ENV_KEY2%|$ENV_VALUE2|g" appsettings.json

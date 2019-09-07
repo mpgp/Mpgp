@@ -9,6 +9,7 @@ using Mpgp.Abstract;
 using Mpgp.DataAccess;
 using Mpgp.Domain;
 using Mpgp.Domain.Accounts.Commands;
+using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Handlers;
 using Mpgp.Domain.Accounts.Queries;
 
@@ -19,6 +20,7 @@ namespace Mpgp.Infrastructure
         public static void AddInfrastructure(this IServiceCollection services)
         {
             services.AddAutoMapper();
+            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
 
             services.AddTransient(sp =>
             {
@@ -49,6 +51,9 @@ namespace Mpgp.Infrastructure
             // todo: register all queries
             services.AddTransient<AccountByIdQuery>();
             services.AddTransient<AccountByLoginAndPasswordQuery>();
+
+            // todo: register all entity errors
+            services.AddTransient<Filters.ValidationFilterAttribute<Account.Errors>>();
         }
     }
 }

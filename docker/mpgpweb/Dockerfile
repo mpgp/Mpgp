@@ -1,5 +1,5 @@
-# FROM microsoft/dotnet:2.1-sdk AS mpgpbuild
-FROM microsoft/dotnet:2.1-sdk-alpine AS mpgpbuild
+# FROM microsoft/dotnet:2.2-sdk AS mpgpbuild
+FROM microsoft/dotnet:2.2-sdk-alpine AS mpgpbuild
 WORKDIR /app
 COPY /libs/. ./libs/
 COPY /tools/. ./tools/
@@ -18,9 +18,9 @@ COPY /src/. /app/src/
 RUN dotnet publish -c release -o out
 
 # FIXME: Use alpine instead:
-# FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS mpgpweb
+# FROM microsoft/dotnet:2.2-aspnetcore-runtime-alpine AS mpgpweb
 # RUN apk add --no-cache gettext
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS mpgpweb
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS mpgpweb
 RUN apt-get update && apt-get install -y gettext-base
 WORKDIR /app
 COPY --from=mpgpbuild /app/src/Mpgp.RestApiServer/out ./

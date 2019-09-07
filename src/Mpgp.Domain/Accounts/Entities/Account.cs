@@ -53,7 +53,7 @@ namespace Mpgp.Domain.Accounts.Entities
         [MaxLength(249, ErrorMessage = Errors.StatusInfoMaxLength)]
         public string StatusInfo { get; set; }
 
-        public class Errors : Abstract.IErrorList
+        public class Errors : Abstract.IEntityErrors
         {
             public const string LoginRequired = "1";
             public const string LoginMinLength = "2";

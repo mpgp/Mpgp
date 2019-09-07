@@ -11,6 +11,10 @@ namespace Mpgp.Domain.Accounts.Dtos
             User = user;
         }
 
+        public AuthInfoDto()
+        {
+        }
+
         public string AuthToken { get; set; }
 
         public AccountDto User { get; set; }
