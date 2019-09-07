@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Mpgp.Abstract;
 using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Entities;
-using Mpgp.RestApiServer.Utils;
+using Mpgp.Infrastructure.Filters;
 using Mpgp.Shared;
 
 namespace Mpgp.RestApiServer.Controllers
@@ -15,6 +15,7 @@ namespace Mpgp.RestApiServer.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ServiceFilter(typeof(ValidationFilterAttribute<Account.Errors>))]
     public class ManageController : ControllerBase
     {
         private readonly ICommandFactory commandFactory;
@@ -28,8 +29,6 @@ namespace Mpgp.RestApiServer.Controllers
         [HttpPatch]
         public async Task UpdateAccount(UpdateAccountCommand command)
         {
-            ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
-
             command.Id = User.Claims.GetAccountId();
             await commandFactory.Execute(command);
         }
@@ -38,8 +37,6 @@ namespace Mpgp.RestApiServer.Controllers
         [HttpPatch("password")]
         public async Task UpdatePassword(UpdatePasswordCommand command)
         {
-            ModelState.ThrowValidationExceptionIfInvalid<Account.Errors>();
-
             command.Id = User.Claims.GetAccountId();
             await commandFactory.Execute(command);
         }
