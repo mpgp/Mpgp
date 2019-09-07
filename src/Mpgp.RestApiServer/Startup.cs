@@ -13,6 +13,7 @@ using Mpgp.Infrastructure;
 using Mpgp.RestApiServer.Utils;
 using Mpgp.RestApiServer.WebSockets;
 using Mpgp.WebSocketServer.Core;
+using Prometheus;
 
 namespace Mpgp.RestApiServer
 {
@@ -57,6 +58,7 @@ namespace Mpgp.RestApiServer
             app.UseCors("MyPolicy");
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseMetricServer();
 
             if (env.IsDevelopment())
             {

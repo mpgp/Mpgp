@@ -19,7 +19,7 @@ services:
             - postgres:/var/lib/postgresql/data
 
     mpgpelastickibana:
-        image: nshou/elasticsearch-kibana
+        image: mpgp129/mpgpelastickibana
         hostname: mpgpelastickibana
         expose:
             - 9200

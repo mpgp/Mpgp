@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Mpgp.Abstract;
 using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Dtos;
+using Mpgp.Shared;
 
 namespace Mpgp.WebSocketServer.Core
 {
@@ -30,7 +31,11 @@ namespace Mpgp.WebSocketServer.Core
 
         private ConcurrentDictionary<AccountDto, WebSocket> ConnectedSockets { get; }
 
-        public void AddSocket(AccountDto account, WebSocket socket) => ConnectedSockets.TryAdd(account, socket);
+        public void AddSocket(AccountDto account, WebSocket socket)
+        {
+            ConnectedSockets.TryAdd(account, socket);
+            Metrics.UsersOnline.Set(ConnectedSockets.Count());
+        }
 
         public AccountDto GetAccount(WebSocket socket) => ConnectedSockets.FirstOrDefault(x => x.Value == socket).Key;
 
@@ -120,6 +125,10 @@ namespace Mpgp.WebSocketServer.Core
             catch (Exception ex)
             {
                 logger.LogError(ex, "An error occurred while removing the socket.");
+            }
+            finally
+            {
+                Metrics.UsersOnline.Set(ConnectedSockets.Count());
             }
         }
     }
