@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RuntimeFrameworkVersion>2.1.6</RuntimeFrameworkVersion>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeFrameworkVersion>2.2.6</RuntimeFrameworkVersion>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <GenerateFullPaths>true</GenerateFullPaths>
+    <LangVersion>latest</LangVersion>
+    <CodeAnalysisRuleSet>../../tools/Mpgp.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Mpgp.WebSocketServer</AssemblyName>
     <RootNamespace>Mpgp.WebSocketServer</RootNamespace>
-    <CodeAnalysisRuleSet>../../tools/Mpgp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="..\..\tools\appsettings.json" CopyToOutputDirectory="Always" />

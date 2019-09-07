@@ -1,13 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RuntimeFrameworkVersion>2.1.6</RuntimeFrameworkVersion>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeFrameworkVersion>2.2.6</RuntimeFrameworkVersion>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <GenerateFullPaths>true</GenerateFullPaths>
     <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
     <CodeAnalysisRuleSet>../../tools/Mpgp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>

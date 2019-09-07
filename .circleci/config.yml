@@ -7,7 +7,7 @@ jobs:
     build:
         working_directory: /temp
         docker:
-            - image: microsoft/dotnet:2.1-sdk-alpine
+            - image: microsoft/dotnet:2.2-sdk-alpine
         environment:
             DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
             DOTNET_CLI_TELEMETRY_OPTOUT: 1

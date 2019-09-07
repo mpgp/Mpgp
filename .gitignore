@@ -255,6 +255,9 @@ paket-files/
 .idea/
 *.sln.iml
 
+.vscode/launch.json
+.vscode/tasks.json
+
 # CodeRush
 .cr/
 

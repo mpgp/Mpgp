@@ -13,9 +13,12 @@
         "editor.formatOnSave": false
     },
     "editor.matchBrackets": false,
+    "explorer.autoReveal": false,
     "typescript.reportStyleChecksAsWarnings": true,
     "todo.file.defaultContent": "\nTodo:\n  ☐ Item\n", // New todo files default content
-    "todo.file.include": ["**/.ToDo"], // Globs to use for including files
+    "todo.file.include": [
+        "**/.ToDo"
+    ], // Globs to use for including files
     "todo.file.view.expanded": true, // Start the tree in an expanded state
     "todo.symbols.box": "☐", // Box symbol
     "todo.symbols.done": "✔", // Done symbol
@@ -27,7 +30,10 @@
     "todo.colors.project": "#66d9ef", // Project color
     "todo.colors.projectStatistics": "#4694a3", // Project statistics color
     "todo.colors.tag": "#e6db74", // Tag color
-    "todo.colors.types": { "TODO": "#ffcc00", "FIXME": "#cc0000" }, // Object mapping todo types to their color
+    "todo.colors.types": {
+        "TODO": "#ffcc00",
+        "FIXME": "#cc0000"
+    }, // Object mapping todo types to their color
     "todo.tags.namesInference": true, // Infer commonly used tags' names
     "todo.archive.name": "Archive", // Name of the special "Archive" section
     "todo.archive.remove.emptyProjects": true, // Remove projects without todos
@@ -57,8 +63,13 @@
     "todo.statistics.statusbar.tooltip": "[pending] Pending - [done] Done - [cancelled] Cancelled", // Template used for rendering the tooltip
     "todo.embedded.regex": "(?:<!-- *)?(?:#|//|/\\*+|<!--|--|\\* @) *(TODO|FIXME|FIX|BUG|UGLY|HACK|NOTE|IDEA|REVIEW|DEBUG|OPTIMIZE)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/|(?= *(?:[^:]//|/\\*+|<!--|@|--))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
     "todo.embedded.regexFlags": "gi", // Regex flags to use
-    "todo.embedded.include": ["**/*"], // Globs to use for including files
-    "todo.embedded.exclude": ["**/.*", "**/.*/**"], // Globs to use for excluding files
+    "todo.embedded.include": [
+        "**/*"
+    ], // Globs to use for including files
+    "todo.embedded.exclude": [
+        "**/.*",
+        "**/.*/**"
+    ], // Globs to use for excluding files
     "todo.embedded.file.wholeLine": true, // Show the whole line
     "todo.embedded.file.groupByRoot": true, // Group embedded todos by workspace root
     "todo.embedded.file.groupByType": true, // Group embedded todos by type
