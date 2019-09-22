@@ -105,6 +105,6 @@
         "@semantic-release/git": "7.0.16",
         "@semantic-release/github": "5.4.3",
         "husky": "3.0.4",
-        "lint-staged": "9.2.5"
+        "lint-staged": "9.3.0"
     }
 }
