@@ -1,7 +1,6 @@
 ﻿// Copyright (c) MPGP. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +18,6 @@ namespace Mpgp.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services)
         {
-            services.AddAutoMapper();
-            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
-
             services.AddTransient(sp =>
             {
                 var configuration = sp.GetRequiredService<IConfiguration>();

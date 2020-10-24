@@ -2,6 +2,7 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
 using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Mpgp.Infrastructure;
+using Mpgp.RestApiServer.ApiServices;
 using Mpgp.RestApiServer.Utils;
 using Mpgp.RestApiServer.WebSockets;
 using Mpgp.WebSocketServer.Core;
@@ -29,6 +31,8 @@ namespace Mpgp.RestApiServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(o => o.AddPolicy("MyPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>(), typeof(Startup));
+            services.AddTransient<AccountApiService>();
             services.AddInfrastructure();
             services.AddWebSocketManager();
             services.Configure<ApiBehaviorOptions>(options =>

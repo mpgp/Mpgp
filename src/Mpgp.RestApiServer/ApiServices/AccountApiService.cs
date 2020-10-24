@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
 using Mpgp.Domain.Accounts.Dtos;
 using Mpgp.Domain.Accounts.Entities;
@@ -12,14 +13,21 @@ using Mpgp.RestApiServer.Utils;
 
 namespace Mpgp.RestApiServer.ApiServices
 {
-    public static class AccountApiService
+    public class AccountApiService
     {
-        public static AuthInfoDto CreateAuthInfo(Account account)
+        private readonly IMapper mapper;
+
+        public AccountApiService(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        public AuthInfoDto CreateAuthInfo(Account account)
         {
             return new AuthInfoDto
             {
                 AuthToken = BuildJwt(GetIdentity(account)),
-                User = AutoMapper.Mapper.Map<Account, AccountDto>(account)
+                User = this.mapper.Map<AccountDto>(account)
             };
         }
 

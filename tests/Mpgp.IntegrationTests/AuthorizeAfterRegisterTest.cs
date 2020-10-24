@@ -22,6 +22,7 @@ namespace Mpgp.IntegrationTests
     {
         private readonly List<IDisposable> disposables = new List<IDisposable>();
         private IAppUnitOfWork uow;
+        private IMapper mapper;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -33,7 +34,9 @@ namespace Mpgp.IntegrationTests
             uow = new AppUnitOfWork(dbContext);
             disposables.Add(uow);
 
-            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapperProfile>());
+
+            mapper = config.CreateMapper();
         }
 
         [OneTimeTearDown]
@@ -69,7 +72,7 @@ namespace Mpgp.IntegrationTests
                 Password = "12345678asdf",
                 PasswordRepeat = "12345678asdf"
             };
-            var handler = new RegisterAccountCommandHandler(uow);
+            var handler = new RegisterAccountCommandHandler(uow, mapper);
             disposables.Add(handler);
 
             // Act
@@ -90,7 +93,7 @@ namespace Mpgp.IntegrationTests
                 Password = "12345678asdf",
                 PasswordRepeat = "12345678asdf"
             };
-            var handler = new RegisterAccountCommandHandler(uow);
+            var handler = new RegisterAccountCommandHandler(uow, mapper);
             disposables.Add(handler);
 
             // Assert

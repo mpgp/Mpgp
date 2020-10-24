@@ -3,6 +3,7 @@
 
 using System.Threading.Tasks;
 
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Mpgp.Abstract;
 using Mpgp.Domain.Accounts.Commands;
@@ -22,11 +23,20 @@ namespace Mpgp.RestApiServer.Controllers
     {
         private readonly ICommandFactory commandFactory;
         private readonly IQueryFactory queryFactory;
+        private readonly IMapper mapper;
+        private readonly AccountApiService accountApiService;
 
-        public AccountController(ICommandFactory commandFactory, IQueryFactory queryFactory)
+        public AccountController(
+            ICommandFactory commandFactory,
+            IQueryFactory queryFactory,
+            IMapper mapper,
+            AccountApiService accountApiService
+            )
         {
             this.commandFactory = commandFactory;
             this.queryFactory = queryFactory;
+            this.mapper = mapper;
+            this.accountApiService = accountApiService;
         }
 
         [HttpPost]
@@ -35,14 +45,14 @@ namespace Mpgp.RestApiServer.Controllers
             var account = await queryFactory.ResolveQuery<AccountByLoginAndPasswordQuery>()
                 .Execute(command.Login, command.Password);
 
-            return AccountApiService.CreateAuthInfo(account);
+            return this.accountApiService.CreateAuthInfo(account);
         }
 
         [HttpGet("{id}")]
         public async Task<AccountDto> GetInfo(int id)
         {
             var response = await queryFactory.ResolveQuery<AccountByIdQuery>().Execute(id);
-            return AutoMapper.Mapper.Map<Account, AccountDto>(response);
+            return this.mapper.Map<Account, AccountDto>(response);
         }
 
         [HttpPut]
@@ -52,7 +62,7 @@ namespace Mpgp.RestApiServer.Controllers
             var account = await queryFactory.ResolveQuery<AccountByLoginAndPasswordQuery>()
                 .Execute(command.Login, command.Password);
 
-            return AccountApiService.CreateAuthInfo(account);
+            return this.accountApiService.CreateAuthInfo(account);
         }
     }
 }
