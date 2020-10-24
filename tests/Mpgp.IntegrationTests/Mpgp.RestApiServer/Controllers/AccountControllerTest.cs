@@ -2,13 +2,11 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Mpgp.Abstract;
 using Mpgp.DataAccess;
 using Mpgp.Domain.Accounts.Commands;
-using Mpgp.Domain.Accounts.Dtos;
 using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Handlers;
 using Mpgp.Domain.Accounts.Queries;
@@ -88,12 +86,9 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
             // Act
             var account = await uow.AccountRepository.GetByLogin("admin2018");
             var controller = new AccountController(null, mockQueryFactory.Object);
-            var okObjectResult = await controller.GetInfo(account.Id) as OkObjectResult;
+            var model = await controller.GetInfo(account.Id);
 
             // Assert
-            Assert.NotNull(okObjectResult);
-
-            var model = okObjectResult.Value as AccountDto;
             Assert.NotNull(model);
             Assert.AreEqual("AlexAnder", model.Nickname);
             Assert.AreEqual("29.jpg", model.Avatar);
