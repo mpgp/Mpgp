@@ -50,7 +50,7 @@ namespace Mpgp.RestApiServer
                         ValidateIssuerSigningKey = true
                     };
                 });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
@@ -62,7 +62,6 @@ namespace Mpgp.RestApiServer
 
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
 
@@ -78,9 +77,10 @@ namespace Mpgp.RestApiServer
             app.MapWebSocketManager(Configuration["Params:WebSocketPath"], serviceProvider.GetService<WebSocketRouter>());
 
             app.UseAuthentication();
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute("default", "api/{controller}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }
