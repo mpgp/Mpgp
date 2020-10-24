@@ -1,8 +1,5 @@
 FROM nshou/elasticsearch-kibana AS mpgpelastickibana
 
-USER root 
-RUN apk add curl
-
 USER elasticsearch
 
 COPY ./docker/mpgpelastickibana/index.json /home/elasticsearch/
