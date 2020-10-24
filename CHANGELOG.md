@@ -1,3 +1,10 @@
+## [2.5.2](https://github.com/mpgp/Mpgp/compare/v2.5.1...v2.5.2) (2020-10-24)
+
+
+### Bug Fixes
+
+* linting issues ([3ebe1e0](https://github.com/mpgp/Mpgp/commit/3ebe1e01c5cac908143f796682bc5955c8d2893a))
+
 ## [2.5.1](https://github.com/mpgp/Mpgp/compare/v2.5.0...v2.5.1) (2020-10-24)
 
 
