@@ -16,7 +16,7 @@ namespace Mpgp.DataAccess
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile(Path.GetFullPath(Path.Combine(@"../../tools/appsettings.json")), true, true)
+                .AddJsonFile(Path.GetFullPath(Path.Combine("../../tools/appsettings.json")), true, true)
                 .Build();
 
             var connectionString = configuration["Params:DefaultConnectionString"];

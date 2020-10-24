@@ -19,16 +19,9 @@ Multiplayer Game Platform
 ## Edit configuration
 
 ```sh
-cp ./tools/appsettings.default.json ./tools/appsettings.json
 (cd ./src/Mpgp.DataAccess && dotnet restore)
 nano ./tools/appsettings.json
 ```
-
-### Change params:
-
-DefaultConnectionString to "psql"
-
-RestApiUrl to "http://0.0.0.0:5000"
 
 ---
 

@@ -27,9 +27,5 @@ jobs:
                   command: cd tests && dotnet restore && cd -
 
             - run:
-                  name: Preparate env
-                  command: cp -rf tools/appsettings.default.json tools/appsettings.json
-
-            - run:
                   name: Test Packages
                   command: sh scripts/bash/test_runner.sh

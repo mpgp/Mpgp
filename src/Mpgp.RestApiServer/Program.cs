@@ -20,7 +20,7 @@ namespace Mpgp.RestApiServer
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile(Path.GetFullPath(Path.Combine(@"../../tools/appsettings.json")), true, true);
+                .AddJsonFile(Path.GetFullPath(Path.Combine("../../tools/appsettings.json")), true, true);
 
             Configuration = builder.Build();
         }
@@ -65,12 +65,9 @@ namespace Mpgp.RestApiServer
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    var env = hostingContext.HostingEnvironment.EnvironmentName;
                     config.SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile(Path.GetFullPath(Path.Combine("../../tools/appsettings.json")), true, true)
-                        .AddJsonFile(Path.GetFullPath(Path.Combine($"../../tools/appsettings.{env}.json")), true, true)
-                        .AddJsonFile($"appsettings.{env}.json", true, true);
+                        .AddJsonFile(Path.GetFullPath(Path.Combine("../../tools/appsettings.json")), true, true);
 
                     config.AddEnvironmentVariables();
 
