@@ -1,3 +1,15 @@
+# [2.5.0](https://github.com/mpgp/Mpgp/compare/v2.4.0...v2.5.0) (2020-10-24)
+
+
+### Bug Fixes
+
+* update .net sdk for circle CI ([fdb47b3](https://github.com/mpgp/Mpgp/commit/fdb47b3beb62d2b9f825588c4492c26c4cfbea45))
+
+
+### Features
+
+* **api:** add appsettings.prod.json ([04fa208](https://github.com/mpgp/Mpgp/commit/04fa20893bc2f3383acde71b66316b3378cec304))
+
 # [2.4.0](https://github.com/mpgp/Mpgp/compare/v2.3.2...v2.4.0) (2019-09-07)
 
 
