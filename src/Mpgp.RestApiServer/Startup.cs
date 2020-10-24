@@ -64,14 +64,9 @@ namespace Mpgp.RestApiServer
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+            }
 
-                // todo : remove
-                app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-            }
-            else
-            {
-                app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-            }
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             var wsOptions = new WebSocketOptions
             {
