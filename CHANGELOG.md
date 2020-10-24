@@ -1,3 +1,10 @@
+## [2.5.3](https://github.com/mpgp/Mpgp/compare/v2.5.2...v2.5.3) (2020-10-24)
+
+
+### Bug Fixes
+
+* tools/appsettings.json ([d17ca70](https://github.com/mpgp/Mpgp/commit/d17ca702dce432586ddaf9c125dee31a2002ca94))
+
 ## [2.5.2](https://github.com/mpgp/Mpgp/compare/v2.5.1...v2.5.2) (2020-10-24)
 
 
