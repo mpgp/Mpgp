@@ -18,11 +18,26 @@ services:
         volumes:
             - postgres:/var/lib/postgresql/data
 
+    mpgpelastickibana:
+        image: mpgp129/mpgpelastickibana
+        hostname: mpgpelastickibana
+        expose:
+            - 9200
+            - 5601
+        ports:
+            - 9200:9200
+            - 5601:5601
+        container_name: mpgpelastickibana
+        labels:
+            - SERVICE_NAME=mpgpelastickibana
+
     mpgpweb:
         links:
             - mpgpdb
+            - mpgpelastickibana
         depends_on:
             - mpgpdb
+            - mpgpelastickibana
         image: mpgp129/mpgpweb
         hostname: mpgpweb
         expose:
@@ -50,6 +65,41 @@ services:
             && envsubst < appsettings.json > temp.json && mv -f temp.json appsettings.json
             && sed -i 's|http://localhost:9200|http://mpgpelastickibana:9200|g' nlog.config
             && dotnet Mpgp.RestApiServer.dll"
+
+    mpgpprometheus:
+        links:
+            - mpgpweb
+        depends_on:
+            - mpgpweb
+        image: mpgp129/mpgpprometheus
+        hostname: mpgpprometheus
+        expose:
+            - 9090
+        ports:
+            - 9090:9090
+        container_name: mpgpprometheus
+        labels:
+            - SERVICE_NAME=mpgpprometheus
+
+    mpgpgrafana:
+        environment:
+            - GF_SECURITY_ADMIN_PASSWORD=12345678
+        links:
+            - mpgpelastickibana
+            - mpgpprometheus
+        depends_on:
+            - mpgpelastickibana
+            - mpgpprometheus
+        image: mpgp129/mpgpgrafana
+        hostname: mpgpgrafana
+        expose:
+            - 3000
+        ports:
+            - 3000:3000
+        container_name: mpgpgrafana
+        labels:
+            - SERVICE_NAME=mpgpgrafana
+
 volumes:
     postgres:
 # sed -i "s|%$ENV_KEY1%|$ENV_VALUE1|g;s|%$ENV_KEY2%|$ENV_VALUE2|g" appsettings.json
