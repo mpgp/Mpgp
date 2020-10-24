@@ -30,8 +30,7 @@ namespace Mpgp.RestApiServer.Controllers
             ICommandFactory commandFactory,
             IQueryFactory queryFactory,
             IMapper mapper,
-            AccountApiService accountApiService
-            )
+            AccountApiService accountApiService)
         {
             this.commandFactory = commandFactory;
             this.queryFactory = queryFactory;

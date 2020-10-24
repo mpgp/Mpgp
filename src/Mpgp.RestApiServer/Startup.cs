@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Mpgp.Infrastructure;
 using Mpgp.RestApiServer.ApiServices;
@@ -51,13 +52,13 @@ namespace Mpgp.RestApiServer
                         ValidateAudience = false,
                         ValidateLifetime = false,
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true
+                        ValidateIssuerSigningKey = true,
                     };
                 });
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseCors("MyPolicy");
             app.UseDefaultFiles();
@@ -74,7 +75,7 @@ namespace Mpgp.RestApiServer
             var wsOptions = new WebSocketOptions
             {
                 KeepAliveInterval = TimeSpan.FromSeconds(60),
-                ReceiveBufferSize = 4 * 1024
+                ReceiveBufferSize = 4 * 1024,
             };
 
             app.UseWebSockets(wsOptions);

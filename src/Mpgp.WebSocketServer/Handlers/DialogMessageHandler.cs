@@ -28,7 +28,7 @@ namespace Mpgp.WebSocketServer.Handlers
                 var error = new ErrorInfo()
                 {
                     ErrorCode = 404,
-                    Message = $"Receiver #{Context.Message.Payload.Receiver} not found."
+                    Message = $"Receiver #{Context.Message.Payload.Receiver} not found.",
                 };
                 await Context.ConnectionManager.SendMessageAsync(Context.Socket, response, error);
                 return;

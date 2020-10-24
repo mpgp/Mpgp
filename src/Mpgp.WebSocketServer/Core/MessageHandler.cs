@@ -52,7 +52,7 @@ namespace Mpgp.WebSocketServer.Core
             var error = new ErrorInfo()
             {
                 ErrorCode = code,
-                Message = message
+                Message = message,
             };
             await Context.ConnectionManager.SendMessageAsync(Context.Socket, new T(), error);
             await Context.ConnectionManager.RemoveSocketAsync(Context.Socket);

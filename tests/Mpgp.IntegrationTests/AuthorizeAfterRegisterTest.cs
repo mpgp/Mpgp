@@ -53,7 +53,7 @@ namespace Mpgp.IntegrationTests
             var account = new AuthorizeAccountCommand()
             {
                 Login = "admin2018",
-                Password = "12345678asdf"
+                Password = "12345678asdf",
             };
             var query = new AccountByLoginAndPasswordQuery(uow);
 
@@ -70,7 +70,7 @@ namespace Mpgp.IntegrationTests
             {
                 Login = "admin2018",
                 Password = "12345678asdf",
-                PasswordRepeat = "12345678asdf"
+                PasswordRepeat = "12345678asdf",
             };
             var handler = new RegisterAccountCommandHandler(uow, mapper);
             disposables.Add(handler);
@@ -91,7 +91,7 @@ namespace Mpgp.IntegrationTests
             {
                 Login = "admin2018",
                 Password = "12345678asdf",
-                PasswordRepeat = "12345678asdf"
+                PasswordRepeat = "12345678asdf",
             };
             var handler = new RegisterAccountCommandHandler(uow, mapper);
             disposables.Add(handler);
@@ -108,7 +108,7 @@ namespace Mpgp.IntegrationTests
             var account = new AuthorizeAccountCommand()
             {
                 Login = "admin2018",
-                Password = "12345678asdf"
+                Password = "12345678asdf",
             };
             var query = new AccountByLoginAndPasswordQuery(uow);
 

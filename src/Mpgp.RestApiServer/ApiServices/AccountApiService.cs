@@ -27,7 +27,7 @@ namespace Mpgp.RestApiServer.ApiServices
             return new AuthInfoDto
             {
                 AuthToken = BuildJwt(GetIdentity(account)),
-                User = this.mapper.Map<AccountDto>(account)
+                User = this.mapper.Map<AccountDto>(account),
             };
         }
 
@@ -51,7 +51,7 @@ namespace Mpgp.RestApiServer.ApiServices
             {
                 new Claim("Id", account.Id.ToString()),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, account.Nickname),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, account.Role)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, account.Role),
             };
             return new ClaimsIdentity(
                 claims,

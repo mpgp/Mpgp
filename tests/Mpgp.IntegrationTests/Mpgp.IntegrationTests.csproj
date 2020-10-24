@@ -7,6 +7,7 @@
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
     <CodeAnalysisRuleSet>../../tools/Mpgp.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1573;1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\tools\stylecop.json" />

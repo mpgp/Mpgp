@@ -52,14 +52,14 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 Login = "admin2018",
                 Nickname = "AlexAnder",
                 Password = Shared.Utils.HashString("12345678asdf"),
-                Role = Account.Roles.User
+                Role = Account.Roles.User,
             });
             await uow.SaveChanges();
 
             var command = new AuthorizeAccountCommand()
             {
                 Login = "admin2018",
-                Password = "12345678asdf"
+                Password = "12345678asdf",
             };
 
             var mockQueryFactory = new Mock<IQueryFactory>();
@@ -83,7 +83,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 Avatar = "29.jpg",
                 Login = "admin2018",
                 Nickname = "AlexAnder",
-                Password = Shared.Utils.HashString("12345678asdf")
+                Password = Shared.Utils.HashString("12345678asdf"),
             });
             await uow.SaveChanges();
 
@@ -111,7 +111,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 Login = "admin2018",
                 Nickname = "AlexAnder",
                 Password = "12345678asdf",
-                PasswordRepeat = "12345678asdf"
+                PasswordRepeat = "12345678asdf",
             };
 
             var mockCommandFactory = new Mock<ICommandFactory>();

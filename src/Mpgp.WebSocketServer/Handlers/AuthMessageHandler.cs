@@ -40,7 +40,7 @@ namespace Mpgp.WebSocketServer.Handlers
                 var account = await GetAccountByToken(Context.Message.Payload.AuthToken);
                 var response = new Messages.Server.AuthMessage()
                 {
-                    UsersList = Context.ConnectionManager.GetOnlineUsers()
+                    UsersList = Context.ConnectionManager.GetOnlineUsers(),
                 };
                 Context.ConnectionManager.AddSocket(account, Context.Socket);
                 await Context.ConnectionManager.SendMessageAsync(Context.Socket, response);
@@ -48,7 +48,7 @@ namespace Mpgp.WebSocketServer.Handlers
                 var connectionMessage = new Messages.Server.UserConnectionMessage()
                 {
                     Account = account,
-                    Status = ConnectionStatus.Connect
+                    Status = ConnectionStatus.Connect,
                 };
                 await Context.ConnectionManager.SendMessageToAllExcludeOneAsync(Context.Socket, connectionMessage);
             }

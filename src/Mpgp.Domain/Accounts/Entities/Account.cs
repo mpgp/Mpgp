@@ -87,7 +87,7 @@ namespace Mpgp.Domain.Accounts.Entities
                 [PasswordRepeatRequired] = "PasswordRepeat is required",
                 [PasswordRepeatMatch] = "PasswordRepeat must match to a Password",
                 [StatusInfoMaxLength] = "StatusInfo must be a maximum of 249 characters",
-                [LanguagesMaxLength] = "Languages must be a maximum of 249 characters"
+                [LanguagesMaxLength] = "Languages must be a maximum of 249 characters",
             };
         }
 
