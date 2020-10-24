@@ -1,3 +1,11 @@
+## [2.5.1](https://github.com/mpgp/Mpgp/compare/v2.5.0...v2.5.1) (2020-10-24)
+
+
+### Bug Fixes
+
+* docker images ([f77ff14](https://github.com/mpgp/Mpgp/commit/f77ff1445e28b7f1b2279918d45d5a7ca9fb60dd))
+* tests ([4a6ddd8](https://github.com/mpgp/Mpgp/commit/4a6ddd82db32839a5d67b3b41e230b1d769f125b))
+
 # [2.5.0](https://github.com/mpgp/Mpgp/compare/v2.4.0...v2.5.0) (2020-10-24)
 
 
