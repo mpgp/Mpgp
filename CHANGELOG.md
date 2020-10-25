@@ -1,3 +1,10 @@
+## [2.5.5](https://github.com/mpgp/Mpgp/compare/v2.5.4...v2.5.5) (2020-10-25)
+
+
+### Bug Fixes
+
+* mpgpelastickibana.Dockerfile ([920b677](https://github.com/mpgp/Mpgp/commit/920b677b57d9eb3c42d95727a92f979a69da2f68))
+
 ## [2.5.4](https://github.com/mpgp/Mpgp/compare/v2.5.3...v2.5.4) (2020-10-25)
 
 
