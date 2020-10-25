@@ -1,5 +1,9 @@
 FROM nshou/elasticsearch-kibana AS mpgpelastickibana
 
+USER root
+
+RUN apt-get install -y curl
+
 USER elasticsearch
 
 COPY ./docker/mpgpelastickibana/index.json /home/elasticsearch/
