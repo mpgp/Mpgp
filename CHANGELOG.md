@@ -1,3 +1,10 @@
+## [2.5.7](https://github.com/mpgp/Mpgp/compare/v2.5.6...v2.5.7) (2020-10-30)
+
+
+### Bug Fixes
+
+* auth ([9a86811](https://github.com/mpgp/Mpgp/commit/9a868119bc7c7d6237dc04c8ec73871202cdb6e7))
+
 ## [2.5.6](https://github.com/mpgp/Mpgp/compare/v2.5.5...v2.5.6) (2020-10-25)
 
 
