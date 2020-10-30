@@ -2,16 +2,17 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Mpgp.Abstract;
 using Mpgp.DataAccess;
 using Mpgp.Domain.Accounts.Commands;
-using Mpgp.Domain.Accounts.Dtos;
 using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Domain.Accounts.Handlers;
 using Mpgp.Domain.Accounts.Queries;
+using Mpgp.Infrastructure;
+using Mpgp.RestApiServer.ApiServices;
 using Mpgp.RestApiServer.Controllers;
 using NUnit.Framework;
 
@@ -20,6 +21,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
     public class AccountControllerTest
     {
         private AppUnitOfWork uow;
+        private IMapper mapper;
 
         [SetUp]
         public void Setup()
@@ -29,6 +31,10 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 .Options);
 
             uow = new AppUnitOfWork(dbContext);
+
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapperProfile>());
+
+            mapper = config.CreateMapper();
         }
 
         [TearDown]
@@ -46,14 +52,14 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 Login = "admin2018",
                 Nickname = "AlexAnder",
                 Password = Shared.Utils.HashString("12345678asdf"),
-                Role = Account.Roles.User
+                Role = Account.Roles.User,
             });
             await uow.SaveChanges();
 
             var command = new AuthorizeAccountCommand()
             {
                 Login = "admin2018",
-                Password = "12345678asdf"
+                Password = "12345678asdf",
             };
 
             var mockQueryFactory = new Mock<IQueryFactory>();
@@ -61,7 +67,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 .Returns(() => new AccountByLoginAndPasswordQuery(uow));
 
             // Act
-            var controller = new AccountController(null, mockQueryFactory.Object);
+            var controller = new AccountController(null, mockQueryFactory.Object, mapper, new AccountApiService(mapper));
             await controller.Authorize(command);
 
             // Assert
@@ -77,7 +83,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 Avatar = "29.jpg",
                 Login = "admin2018",
                 Nickname = "AlexAnder",
-                Password = Shared.Utils.HashString("12345678asdf")
+                Password = Shared.Utils.HashString("12345678asdf"),
             });
             await uow.SaveChanges();
 
@@ -87,13 +93,10 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
 
             // Act
             var account = await uow.AccountRepository.GetByLogin("admin2018");
-            var controller = new AccountController(null, mockQueryFactory.Object);
-            var okObjectResult = await controller.GetInfo(account.Id) as OkObjectResult;
+            var controller = new AccountController(null, mockQueryFactory.Object, mapper, new AccountApiService(mapper));
+            var model = await controller.GetInfo(account.Id);
 
             // Assert
-            Assert.NotNull(okObjectResult);
-
-            var model = okObjectResult.Value as AccountDto;
             Assert.NotNull(model);
             Assert.AreEqual("AlexAnder", model.Nickname);
             Assert.AreEqual("29.jpg", model.Avatar);
@@ -108,14 +111,14 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 Login = "admin2018",
                 Nickname = "AlexAnder",
                 Password = "12345678asdf",
-                PasswordRepeat = "12345678asdf"
+                PasswordRepeat = "12345678asdf",
             };
 
             var mockCommandFactory = new Mock<ICommandFactory>();
             mockCommandFactory.Setup(repo => repo.Execute(command))
                 .Returns(async () =>
                 {
-                    var handler = new RegisterAccountCommandHandler(uow);
+                    var handler = new RegisterAccountCommandHandler(uow, mapper);
                     await handler.Execute(command);
                 });
 
@@ -124,7 +127,7 @@ namespace Mpgp.IntegrationTests.Mpgp.RestApiServer.Controllers
                 .Returns(() => new AccountByLoginAndPasswordQuery(uow));
 
             // Act
-            var controller = new AccountController(mockCommandFactory.Object, mockQueryFactory.Object);
+            var controller = new AccountController(mockCommandFactory.Object, mockQueryFactory.Object, mapper, new AccountApiService(mapper));
             await controller.Register(command);
 
             // Assert

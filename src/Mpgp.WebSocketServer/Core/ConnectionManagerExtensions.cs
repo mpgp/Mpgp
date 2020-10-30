@@ -58,7 +58,7 @@ namespace Mpgp.WebSocketServer.Core
             {
                 Type = messageType,
                 Error = error,
-                Payload = message
+                Payload = message,
             };
             return JsonConvert.SerializeObject(response, Shared.Utils.JsonSettings);
         }

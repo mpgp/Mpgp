@@ -33,3 +33,4 @@ nuget.exe
 .vs/
 project.lock.json
 docker/pg_data/
+node_modules/

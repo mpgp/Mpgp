@@ -1,9 +1,8 @@
-# FROM microsoft/dotnet:2.2-sdk AS mpgpbuild
-FROM microsoft/dotnet:2.2-sdk-alpine AS mpgpbuild
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS mpgpbuild
 WORKDIR /app
 COPY /libs/. ./libs/
 COPY /tools/. ./tools/
-RUN cp -rf ./tools/appsettings.default.json ./tools/appsettings.json
+COPY /tools/appsettings.prod.json ./tools/appsettings.json
 COPY /src/Mpgp.sln ./src/Mpgp.sln
 COPY /src/Mpgp.Abstract/Mpgp.Abstract.csproj ./src/Mpgp.Abstract/Mpgp.Abstract.csproj
 COPY /src/Mpgp.DataAccess/Mpgp.DataAccess.csproj ./src/Mpgp.DataAccess/Mpgp.DataAccess.csproj
@@ -15,12 +14,9 @@ COPY /src/Mpgp.WebSocketServer/Mpgp.WebSocketServer.csproj ./src/Mpgp.WebSocketS
 WORKDIR /app/src/Mpgp.RestApiServer
 RUN dotnet restore
 COPY /src/. /app/src/
-RUN dotnet publish -c release -o out
+RUN dotnet publish -c Release -o out
 
-# FIXME: Use alpine instead:
-# FROM microsoft/dotnet:2.2-aspnetcore-runtime-alpine AS mpgpweb
-# RUN apk add --no-cache gettext
-FROM microsoft/dotnet:2.2-aspnetcore-runtime AS mpgpweb
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS mpgpweb
 RUN apt-get update && apt-get install -y gettext-base
 WORKDIR /app
 COPY --from=mpgpbuild /app/src/Mpgp.RestApiServer/out ./

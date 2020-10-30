@@ -4,5 +4,14 @@ COMMANDS_TO_RUN+=('echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" 
 COMMANDS_TO_RUN+=('bash scripts/bash/docker/build.sh $DOCKER_IMAGE_NAME_WEB')
 COMMANDS_TO_RUN+=('docker push $DOCKER_IMAGE_OWNER/$DOCKER_IMAGE_NAME_WEB')
 
+COMMANDS_TO_RUN+=('bash scripts/bash/docker/build.sh $DOCKER_IMAGE_NAME_PR')
+COMMANDS_TO_RUN+=('docker push $DOCKER_IMAGE_OWNER/$DOCKER_IMAGE_NAME_PR')
+
+COMMANDS_TO_RUN+=('bash scripts/bash/docker/build.sh $DOCKER_IMAGE_NAME_GR')
+COMMANDS_TO_RUN+=('docker push $DOCKER_IMAGE_OWNER/$DOCKER_IMAGE_NAME_GR')
+
+COMMANDS_TO_RUN+=('bash scripts/bash/docker/build.sh $DOCKER_IMAGE_NAME_EK')
+COMMANDS_TO_RUN+=('docker push $DOCKER_IMAGE_OWNER/$DOCKER_IMAGE_NAME_EK')
+
 COMMANDS_TO_RUN+=('bash scripts/bash/docker/build.sh $DOCKER_IMAGE_NAME_DB')
 COMMANDS_TO_RUN+=('docker push $DOCKER_IMAGE_OWNER/$DOCKER_IMAGE_NAME_DB')

@@ -1,3 +1,65 @@
+## [2.5.7](https://github.com/mpgp/Mpgp/compare/v2.5.6...v2.5.7) (2020-10-30)
+
+
+### Bug Fixes
+
+* auth ([9a86811](https://github.com/mpgp/Mpgp/commit/9a868119bc7c7d6237dc04c8ec73871202cdb6e7))
+
+## [2.5.6](https://github.com/mpgp/Mpgp/compare/v2.5.5...v2.5.6) (2020-10-25)
+
+
+### Bug Fixes
+
+* mpgpelastickibana.Dockerfile ([c961746](https://github.com/mpgp/Mpgp/commit/c961746940e9cbf8b16895cadf4fe42a7f66b24a))
+
+## [2.5.5](https://github.com/mpgp/Mpgp/compare/v2.5.4...v2.5.5) (2020-10-25)
+
+
+### Bug Fixes
+
+* mpgpelastickibana.Dockerfile ([920b677](https://github.com/mpgp/Mpgp/commit/920b677b57d9eb3c42d95727a92f979a69da2f68))
+
+## [2.5.4](https://github.com/mpgp/Mpgp/compare/v2.5.3...v2.5.4) (2020-10-25)
+
+
+### Bug Fixes
+
+* mpgpelastickibana.Dokerfile ([91eb1c1](https://github.com/mpgp/Mpgp/commit/91eb1c167be660bce8ae1b785ef93393449ae8f2))
+
+## [2.5.3](https://github.com/mpgp/Mpgp/compare/v2.5.2...v2.5.3) (2020-10-24)
+
+
+### Bug Fixes
+
+* tools/appsettings.json ([d17ca70](https://github.com/mpgp/Mpgp/commit/d17ca702dce432586ddaf9c125dee31a2002ca94))
+
+## [2.5.2](https://github.com/mpgp/Mpgp/compare/v2.5.1...v2.5.2) (2020-10-24)
+
+
+### Bug Fixes
+
+* linting issues ([3ebe1e0](https://github.com/mpgp/Mpgp/commit/3ebe1e01c5cac908143f796682bc5955c8d2893a))
+
+## [2.5.1](https://github.com/mpgp/Mpgp/compare/v2.5.0...v2.5.1) (2020-10-24)
+
+
+### Bug Fixes
+
+* docker images ([f77ff14](https://github.com/mpgp/Mpgp/commit/f77ff1445e28b7f1b2279918d45d5a7ca9fb60dd))
+* tests ([4a6ddd8](https://github.com/mpgp/Mpgp/commit/4a6ddd82db32839a5d67b3b41e230b1d769f125b))
+
+# [2.5.0](https://github.com/mpgp/Mpgp/compare/v2.4.0...v2.5.0) (2020-10-24)
+
+
+### Bug Fixes
+
+* update .net sdk for circle CI ([fdb47b3](https://github.com/mpgp/Mpgp/commit/fdb47b3beb62d2b9f825588c4492c26c4cfbea45))
+
+
+### Features
+
+* **api:** add appsettings.prod.json ([04fa208](https://github.com/mpgp/Mpgp/commit/04fa20893bc2f3383acde71b66316b3378cec304))
+
 # [2.4.0](https://github.com/mpgp/Mpgp/compare/v2.3.2...v2.4.0) (2019-09-07)
 
 

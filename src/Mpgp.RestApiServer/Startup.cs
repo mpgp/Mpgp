@@ -2,14 +2,17 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
 using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Mpgp.Infrastructure;
+using Mpgp.RestApiServer.ApiServices;
 using Mpgp.RestApiServer.Utils;
 using Mpgp.RestApiServer.WebSockets;
 using Mpgp.WebSocketServer.Core;
@@ -29,6 +32,8 @@ namespace Mpgp.RestApiServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(o => o.AddPolicy("MyPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>(), typeof(Startup));
+            services.AddTransient<AccountApiService>();
             services.AddInfrastructure();
             services.AddWebSocketManager();
             services.Configure<ApiBehaviorOptions>(options =>
@@ -47,13 +52,13 @@ namespace Mpgp.RestApiServer
                         ValidateAudience = false,
                         ValidateLifetime = false,
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true
+                        ValidateIssuerSigningKey = true,
                     };
                 });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseCors("MyPolicy");
             app.UseDefaultFiles();
@@ -62,30 +67,26 @@ namespace Mpgp.RestApiServer
 
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+            }
 
-                // todo : remove
-                app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-            }
-            else
-            {
-                app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-            }
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             var wsOptions = new WebSocketOptions
             {
                 KeepAliveInterval = TimeSpan.FromSeconds(60),
-                ReceiveBufferSize = 4 * 1024
+                ReceiveBufferSize = 4 * 1024,
             };
 
             app.UseWebSockets(wsOptions);
             app.MapWebSocketManager(Configuration["Params:WebSocketPath"], serviceProvider.GetService<WebSocketRouter>());
 
+            app.UseRouting();
             app.UseAuthentication();
-            app.UseMvc(routes =>
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute("default", "api/{controller}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }

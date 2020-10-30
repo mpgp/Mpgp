@@ -3,6 +3,7 @@
 
 using System.Threading.Tasks;
 
+using AutoMapper;
 using Mpgp.Domain.Accounts.Commands;
 using Mpgp.Domain.Accounts.Entities;
 using Mpgp.Shared.Exceptions;
@@ -12,9 +13,12 @@ namespace Mpgp.Domain.Accounts.Handlers
     public class RegisterAccountCommandHandler
         : CommandHandlerBase<RegisterAccountCommand>
     {
-        public RegisterAccountCommandHandler(IAppUnitOfWork uow)
+        private readonly IMapper mapper;
+
+        public RegisterAccountCommandHandler(IAppUnitOfWork uow, IMapper mapper)
             : base(uow)
         {
+            this.mapper = mapper;
         }
 
         public override async Task<int> Execute(RegisterAccountCommand command)
@@ -25,10 +29,10 @@ namespace Mpgp.Domain.Accounts.Handlers
                 throw new ConflictException();
             }
 
-            var account = AutoMapper.Mapper.Map<RegisterAccountCommand, Account>(command);
+            var account = this.mapper.Map<RegisterAccountCommand, Account>(command);
             account.Password = Shared.Utils.HashString(command.Password);
             account.Avatar = command.Avatar ?? Shared.Utils.Random.Next(0, 99) + ".jpg";
-            account.Nickname = command.Nickname = command.Nickname ?? command.Login;
+            account.Nickname = command.Nickname ?? command.Login;
             account.Role = Account.Roles.User;
 
             await Uow.AccountRepository.Add(account);
