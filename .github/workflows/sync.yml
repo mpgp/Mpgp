@@ -1,0 +1,14 @@
+name: Sync to GitLab
+on: [push, delete]
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Push to GitLab
+        uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/${{ github.repository }}
